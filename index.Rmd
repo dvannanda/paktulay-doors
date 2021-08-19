@@ -1,0 +1,281 @@
+---
+title: "Materials Needed"
+author: "Factory - Pak Eddie"
+date: "19 August 2021, Updated `r format(Sys.Date(), '%d %B %Y')`"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    css: style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      warning = FALSE,
+                      message = FALSE)
+
+# load packages
+library(tidyverse)
+library(here)
+library(DT)
+```
+
+The raw data is imported from excel.
+
+```{r data-[preparation}
+filename = "materials.xlsx"
+
+# import data
+df_raw <- readxl::read_xlsx(here("data", filename))
+
+# extra additions
+xt_add <-
+  df_raw %>% 
+  select(model, ends_with("_xt_add")) %>% 
+  pivot_longer(cols = ends_with("_xt_add"),
+               names_to = "type",
+               values_to = "length") %>% 
+  dplyr::filter(! is.na(length))
+
+# multiplier
+multiplier <- 
+  df_raw %>% 
+  select(model, ends_with("_multiplier")) %>% 
+  pivot_longer(cols = ends_with("_multiplier"),
+               names_to = "type",
+               values_to = "multiplier") %>% 
+  mutate(type = stringr::str_remove(type, "_multiplier"))
+
+# clean main dataframe
+df <- 
+  df_raw %>% 
+  # remove extra additions and multiplier
+  select(-ends_with("_xt_add"), -ends_with("_multiplier")) %>% 
+  # pivot longer (tidy data)
+  pivot_longer(cols = -model,
+               names_to = "type",
+               values_to = "length") %>% 
+  # join with multiplier
+  left_join(multiplier, by = c("model", "type")) %>% 
+  # expand multiplier using uncount()
+  uncount(weights = multiplier) %>% 
+  # join with extra additions
+  full_join(xt_add, by = c("model", "type", "length")) %>% 
+  # remove length = NA
+  dplyr::filter(! is.na(length))
+```
+
+## Overview {.tabset}
+
+### By model, type and length
+
+```{r summary-data}
+# make summary data to save to csv
+df_summary <- 
+  df %>% 
+  group_by(model, type, length) %>% 
+  # get number of pieces needed according to group 
+  tally() %>% 
+  ungroup()
+
+# save summary data to csv
+write_csv(df_summary, file = "data/summary.csv")
+
+# print summary data
+df_summary %>% 
+  datatable(
+    colnames = c("Model", "Type", "Length", "Number of Pieces Needed"),
+    options = list(
+      pageLength = 6
+    )
+  )
+```
+
+### By model and length
+
+```{r summary-model-length}
+# print summary by model and length
+df %>% 
+  group_by(model, length) %>% 
+  tally() %>% 
+  datatable(
+    colnames = c("Model", "Length", "Number of Pieces Needed"),
+    options = list(
+      pageLength = 6
+    )
+  )
+```
+
+### By length and model
+```{r}
+# print summary by length and model
+df %>% 
+  group_by(length, model) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  arrange(desc(length)) %>% 
+  datatable(
+    colnames = c("Length", "Model","Number of Pieces Needed"),
+    options = list(
+      pageLength = 6
+    )
+  )
+```
+
+## Materials Needed {.tabset}
+
+Note: leftover unusued.
+
+The tables below gives the calculation for materials needed when grouped by model, type and length. 
+
+5 additional columns have been added. They are:
+
+1. **Each Bar (6m) Gives**: The number of pieces each bar can give for the particular length
+2. **Number of Bars Needed**: How many bars is required to fulfill the requirement for that length
+3. **Total Remainder Length**: This is calculated by:
+    $$(6 \times bar \ needed) - (length \times n) \\
+    or \\ 
+    (remainder \ at \ max \ cap \times bar \ needed) + unused \ capacity
+    $$
+ 
+4. **Remainder at Max Capacity**: This is the remainder of each bar, when used at maximum capacity for that length. This is calculated by:
+    $$ 6 - (each \ bar \ gives \times length) $$
+    and is rounded up to 2 decimal places. 
+5. **Unused Capacity**: This is what is left unused when the bar is not used to make the maximum number of pieces it can for a particular length. This is calculated by: 
+    $$((bar \ needed \times each \ bar \ gives) - n) \times length$$
+
+### Grouped by model, type and lengths
+
+```{r}
+bar_length = 6
+
+# make table calculations
+df_calc <-
+  df %>% 
+  # group by model, type and length and get tally
+  group_by(model, type, length) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  # calculations
+  mutate(
+    each_bar_gives = bar_length %/% length,
+    bar_needed = ceiling(n/each_bar_gives),
+    remainder_length_total = (bar_length*bar_needed) - (length*n), # also remainder_at_max_cap * bars_needed + unused capacity
+    remainder_at_max_cap = round(bar_length - (each_bar_gives*length), 2),
+    unused_capacity = (bar_needed*each_bar_gives - n)*length
+  )
+
+df_calc %>% 
+  DT::datatable(
+    colnames = c("Model", "Type", "Length", "Number of Pieces", "Each Bar (6m) Gives", "Number of Bars Needed", "Total Remainder Length", "Remainder at Max Cap", "Unused Capacity")
+  )
+```
+
+When grouped by individual models, types, and length - <mark> the total number of bars needed are **`r sum(is.finite(df_calc$bar_needed))`** </mark>.
+
+Alert to the observation for frame width in model W19: exceeds 6m.
+
+### <mark>Overall, grouped by length</mark>
+
+Note: leftover unusued.
+
+```{r}
+# make table calculations
+df_length <-
+  df %>% 
+  group_by(length) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  mutate(each_bar_gives = bar_length %/% length,
+         bar_needed = ceiling(n/each_bar_gives),
+         remainder_length_total = (bar_length*bar_needed) - (length*n), # also remainder_at_max_cap * bars_needed + unused capacity
+         remainder_at_max_cap = round(bar_length - (each_bar_gives*length), 2),
+         unused_capacity = (bar_needed*each_bar_gives - n)*length)
+
+df_length %>% 
+  arrange(desc(length)) %>% 
+  DT::datatable(
+    colnames = c("Length", "Number of Pieces", "Each Bar (6m) Gives", "Number of Bars Needed", "Total Remainder Length", "Remainder at Max Cap", "Unused Capacity")
+  )
+```
+
+When grouped by length, still having unused capacity, <mark> the total number of bars needed are **`r df_length$bar_needed %>% is.finite() %>%  sum(na.rm = T)`** </mark>.
+
+
+### Overall, grouped by length (with bins)
+
+Note: leftover unusued.
+
+```{r}
+df_with_bins <-
+  df %>%
+  mutate(
+    bins = cut(length, 
+               breaks = c(seq(0, 6, 0.5)),
+               labels = c(seq(0.5, 6, 0.5)) %>% 
+                 as.character(),
+               right = FALSE),
+    ceiling = ceiling(length)
+  ) %>% 
+  group_by(bins) %>% 
+  tally() %>% 
+  ungroup() %>% 
+  rename(length = bins) %>% 
+  arrange(desc(length)) %>% 
+  mutate(
+    length = as.character(length),
+    length = as.double(length),
+    each_bar_gives = bar_length %/% length,
+    bar_needed = ceiling(n/each_bar_gives),
+    remainder_length_total = (bar_length*bar_needed) - (length*n), # also remainder_at_max_cap * bars_needed + unused capacity
+    remainder_at_max_cap = bar_length - (each_bar_gives*length),
+    unused_capacity = (bar_needed*each_bar_gives - n)*length
+  )
+
+df_with_bins %>% 
+  datatable(
+    colnames = c("Length", "Number of Pieces", "Each Bar (6m) Gives", "Number of Bars Needed", "Total Remainder Length", "Remainder at Max Cap", "Unused Capacity"),
+    options = list(
+      pageLength = 11
+    )
+  )
+```
+
+With bins, still having unused capacity, <mark> the total number of bars needed are **`r df_with_bins$bar_needed %>% sum(na.rm = T)`**<mark>.
+
+## Legend
+
+```{r}
+legend_type <- df_calc$type %>% unique()
+legend_type_explanation <- c(
+  "Door/Windows - Back",
+  "Door/Windows - Bottom",
+  "Door/Windows - Front",
+  "Door/Windows - Top",
+  "Frame - Height",
+  "Frame - Width", 
+  "Door/Windows - Bottom, Extra Additions",
+  "Door/Windows - Top, Extra Additions",
+  "Frame - Width, Extra Additions",
+  "Frame - Height, Extra Additions"
+)
+
+legend <- tibble(legend_type, legend_type_explanation)
+
+legend %>% 
+  kableExtra::kable(col.names = c("Type", "Description")) %>% 
+  kableExtra::kable_styling(bootstrap_options = c("striped", "hover"))
+```
+
+## Raw Data
+
+```{r}
+# show table
+df_raw %>% 
+  datatable()
+```
+
+
+

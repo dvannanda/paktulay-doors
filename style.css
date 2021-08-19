@@ -1,0 +1,103 @@
+/* Importing Google Fonts */ 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@900&display=swap');       /* header */ 
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans&display=swap');          /* normal */ 
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');       /* code */ 
+
+/* -------------------------------------------------------- */ 
+
+/* Set main font */ 
+* {
+  font-family: 'Josefin Sans', sans-serif;
+  font-weight: 400;
+  font-style: regular;
+}
+
+/* Set headers font */ 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  color: #05192D;
+}
+
+/* Set color for h1 */ 
+h1 {
+    color: #05192D;
+}
+
+/* Add padding for title */ 
+h1.title {
+  padding-bottom: 20px;
+}
+
+/* Set font family for text objects in YAML */ 
+#header h4 {
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+/* Set font for the code */ 
+code {
+  font-family: 'Source Code Pro', monospace;
+}
+
+/* Set font for the links */
+a {
+  color: #029E40;
+}
+
+a:hover {
+  color: #029E40;
+  background-color: #E5E1DA;
+  border-radius: 3px;
+}
+
+mark {
+  background-color: #1CA753;
+  color: white;
+}
+
+
+/* -------------------------------------------------------- */ 
+
+p.caption {
+  margin-top: 10px;
+  color: #029E40;
+}
+
+/* Set background color for body */
+body {
+  background: #F7F3EB;
+}
+
+
+/*------------Table of Contents (TOC)----------- */
+
+.tocify {
+  border: none;   /*Removes border */
+  border-radius: 0px; /* Gets rid of rounded corners on TOC */
+  font-size: 16px;
+}
+
+.tocify ul, .tocify li { /* Increases spacing between TOC headers*/
+    line-height: 25px;
+}
+
+.tocify ul {
+  border-right: solid 1px #eee; /* Thin right border on TOC list */
+}
+
+/* Active TOC links*/
+
+.list-group-item.active, 
+.list-group-item.active:hover{
+  color: #02EE60;
+  background-color: #05192D;
+  border-color: #ccc;
+}
+
+/* Hovered TOC links*/
+
+.list-group-item:hover { 
+  color: #02EE60;
+  background-color: #05192D;
+  border: none;
+}
