@@ -265,13 +265,12 @@ div.tocify {
 
 <h1 class="title toc-ignore">Materials Needed</h1>
 <h4 class="author">Factory - Pak Eddie</h4>
-<h4 class="date">19 August 2021, Updated 20 August 2021</h4>
+<h4 class="date">19 August 2021, Updated 27 August 2021</h4>
 
 </div>
 
 
-<p>The raw data is imported from an excel file named <code>material.xlsx</code> and can be seen at the end of the report.</p>
-<p>Download the data <a href="https://github.com/dvannanda/paktulay-doors/blob/main/data/materials.xlsx?raw=true">here</a>.</p>
+<p>The main data tables in this report can be viewed in google sheets <a href="https://docs.google.com/spreadsheets/d/1Fwp5bj1Q6TyonGrFc_UbmCjGx5BnOrHNWFhvGsx0-A0/edit?usp=sharing">here</a>. See <code>calculations</code> tabs.</p>
 <pre class="r"><code>filename = &quot;materials.xlsx&quot;
 
 # import data
@@ -311,68 +310,8 @@ df &lt;-
   # join with extra additions
   full_join(xt_add, by = c(&quot;model&quot;, &quot;type&quot;, &quot;length&quot;)) %&gt;% 
   # remove length = NA
-  dplyr::filter(! is.na(length))</code></pre>
-<div id="overview" class="section level2 tabset">
-<h2 class="tabset">Overview</h2>
-<div id="by-model-type-and-length" class="section level3">
-<h3>By model, type and length</h3>
-<pre class="r"><code># make summary data to save to csv
-df_summary &lt;- 
-  df %&gt;% 
-  group_by(model, type, length) %&gt;% 
-  # get number of pieces needed according to group 
-  tally() %&gt;% 
-  ungroup()
-
-# save summary data to csv
-write_csv(df_summary, file = &quot;data/summary.csv&quot;)
-
-# print summary data
-df_summary %&gt;% 
-  datatable(
-    colnames = c(&quot;Model&quot;, &quot;Type&quot;, &quot;Length&quot;, &quot;Number of Pieces Needed&quot;),
-    options = list(
-      pageLength = 6
-    )
-  )</code></pre>
-<div id="htmlwidget-eaf0e23a8140038521cc" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-eaf0e23a8140038521cc">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237"],["D1","D1","D1","D1","D1","D1","D2","D2","D2","D2","D2","D2","D3","D3","D4","D4","D4","D4","D4","D4","SD1","SD1","SD1","SD1","SD1","SD1","SD10","SD10","SD10","SD10","SD10","SD10","SD10","SD10","SD10","SD2","SD2","SD2","SD2","SD2","SD2","SD2","SD2","SD3","SD3","SD3","SD3","SD3","SD3","SD3","SD3","SD4","SD4","SD4","SD4","SD4","SD4","SD4","SD4","SD5","SD5","SD5","SD5","SD5","SD5","SD5","SD5","SD6","SD6","SD6","SD6","SD6","SD6","SD6","SD6","SD7","SD7","SD7","SD7","SD7","SD7","SD7","SD8","SD8","SD8","SD8","SD8","SD8","SD8","SD9","SD9","SD9","SD9","SD9","SD9","SD9","SD9","SD9","W1","W1","W1","W1","W1","W1","W1","W1","W10","W10","W11","W11","W11","W11","W11","W11","W11","W11","W12","W12","W12","W12","W12","W12","W13","W13","W13","W13","W13","W13","W13","W13","W13","W14","W14","W14","W14","W14","W14","W14","W14","W14","W15","W15","W15","W15","W15","W15","W15","W16","W16","W16","W16","W16","W16","W16","W16","W16","W17","W17","W17","W17","W17","W17","W17","W17","W17","W18","W18","W18","W18","W18","W18","W18","W19","W19","W19","W19","W19","W19","W19","W2","W2","W2","W2","W2","W2","W2","W2","W3","W3","W3","W3","W3","W3","W3","W3","W4","W4","W4","W4","W4","W4","W4","W4","W5","W5","W5","W5","W5","W5","W5","W5","W6","W6","W6","W6","W6","W6","W6","W6","W7","W7","W7","W7","W7","W7","W7","W7","W8","W8","W8","W8","W8","W8","W8","W8","W9","W9"],["dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","frame_height","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","frame_width_xt_add","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","frame_width_xt_add","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","frame_width_xt_add","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","frame_width_xt_add","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","frame_height","frame_width"],[2.25,0.8,2.25,0.8,2.3,0.9,2.25,0.7,2.25,0.7,2.3,0.8,2.035,1.116,2.265,1.002,2.265,1.002,2.3,2.075,2.25,1.957,2.25,1.957,2.3,3.875,2.25,1.15,1.265,2.25,1.15,1.265,2.3,5.75,3.4,2.25,1.13,1.19,2.25,1.13,1.19,2.3,2.35,2.25,0.875,0.87,2.25,0.875,0.87,2.3,1.85,2.25,1.07,1.122,2.25,1.07,1.122,2.3,2.225,2.25,1.23,1.29,2.25,1.23,1.29,2.3,2.225,2.25,1.155,1.215,2.25,1.155,1.215,2.3,2.4,2.25,1.895,2.25,1.895,2.3,5.5,1.85,2.25,1.895,2.25,1.895,2.3,5.85,2.2,2.25,1.155,1.265,2.25,1.155,1.265,2.3,4.5,2.15,1.4,1.317,1.377,1.4,1.317,1.377,1.5,2.625,1.5,1.125,1.4,1.052,0.992,1.4,1.052,0.992,1.5,4.1,1.4,1.932,1.4,1.932,1.5,3.875,1.4,1.317,1.392,1.4,1.317,1.392,2.3,0.75,2.725,1.4,3.209,1.818,1.4,3.209,1.818,2.3,0.75,3.225,1.4,2.044,1.4,2.044,2.3,2.25,4.1,1.4,1.267,1.192,1.4,1.267,1.192,2.3,0.75,2.475,1.4,1.052,0.992,1.4,1.052,0.992,2.3,2.25,4.1,1.4,1.87,1.4,1.87,2.3,2.25,5.6,1.4,2.06,1.4,2.06,2.3,2.25,6.175,1.4,0.955,1.015,1.4,0.955,1.015,1.5,2,1.4,0.992,1.1052,1.4,0.992,1.1052,1.5,2.075,1.4,0.655,0.715,1.4,0.655,0.715,1.5,1.4,0.5,0.754,0.877,0.5,0.754,0.877,0.6,1.725,0.5,0.68,0.74,0.5,0.68,0.74,0.6,1.45,0.5,1.355,1.415,0.5,1.355,1.415,0.6,2.8,0.5,1.567,1.627,0.5,1.567,1.627,0.6,3.225,1.5,1.225],[1,1,1,1,2,1,1,1,1,1,2,1,2,1,2,2,2,2,2,1,4,2,4,2,2,1,2,1,1,2,1,1,5,1,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,4,2,4,2,4,1,1,4,2,4,2,4,1,1,2,1,1,2,1,1,4,1,1,2,1,1,2,1,1,2,2,2,2,2,2,1,2,2,1,3,2,2,2,2,2,3,2,2,1,1,2,1,1,2,1,3,2,1,1,2,1,1,2,1,3,4,2,4,2,3,1,3,2,1,1,2,1,1,2,1,3,4,1,1,4,1,1,3,1,3,6,3,6,3,4,1,3,6,3,6,3,4,1,3,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Model<\/th>\n      <th>Type<\/th>\n      <th>Length<\/th>\n      <th>Number of Pieces Needed<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"className":"dt-right","targets":[3,4]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-</div>
-<div id="by-model-and-length" class="section level3">
-<h3>By model and length</h3>
-<pre class="r"><code># print summary by model and length
-df %&gt;% 
-  group_by(model, length) %&gt;% 
-  tally() %&gt;% 
-  # formatting
-  datatable(
-    colnames = c(&quot;Model&quot;, &quot;Length&quot;, &quot;Number of Pieces Needed&quot;),
-    options = list(
-      pageLength = 6
-    )
-  )</code></pre>
-<div id="htmlwidget-06f3ece80974262abb36" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-06f3ece80974262abb36">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156"],["D1","D1","D1","D1","D2","D2","D2","D2","D3","D3","D4","D4","D4","D4","SD1","SD1","SD1","SD1","SD10","SD10","SD10","SD10","SD10","SD10","SD2","SD2","SD2","SD2","SD2","SD3","SD3","SD3","SD3","SD3","SD4","SD4","SD4","SD4","SD4","SD5","SD5","SD5","SD5","SD5","SD6","SD6","SD6","SD6","SD6","SD7","SD7","SD7","SD7","SD7","SD8","SD8","SD8","SD8","SD8","SD9","SD9","SD9","SD9","SD9","SD9","W1","W1","W1","W1","W1","W10","W10","W11","W11","W11","W11","W11","W12","W12","W12","W12","W13","W13","W13","W13","W13","W13","W14","W14","W14","W14","W14","W14","W15","W15","W15","W15","W15","W16","W16","W16","W16","W16","W16","W17","W17","W17","W17","W17","W17","W18","W18","W18","W18","W18","W19","W19","W19","W19","W19","W2","W2","W2","W2","W2","W3","W3","W3","W3","W3","W4","W4","W4","W4","W5","W5","W5","W5","W5","W6","W6","W6","W6","W6","W7","W7","W7","W7","W7","W8","W8","W8","W8","W8","W9","W9"],[0.8,0.9,2.25,2.3,0.7,0.8,2.25,2.3,1.116,2.035,1.002,2.075,2.265,2.3,1.957,2.25,2.3,3.875,1.15,1.265,2.25,2.3,3.4,5.75,1.13,1.19,2.25,2.3,2.35,0.87,0.875,1.85,2.25,2.3,1.07,1.122,2.225,2.25,2.3,1.23,1.29,2.225,2.25,2.3,1.155,1.215,2.25,2.3,2.4,1.85,1.895,2.25,2.3,5.5,1.895,2.2,2.25,2.3,5.85,1.155,1.265,2.15,2.25,2.3,4.5,1.317,1.377,1.4,1.5,2.625,1.125,1.5,0.992,1.052,1.4,1.5,4.1,1.4,1.5,1.932,3.875,0.75,1.317,1.392,1.4,2.3,2.725,0.75,1.4,1.818,2.3,3.209,3.225,1.4,2.044,2.25,2.3,4.1,0.75,1.192,1.267,1.4,2.3,2.475,0.992,1.052,1.4,2.25,2.3,4.1,1.4,1.87,2.25,2.3,5.6,1.4,2.06,2.25,2.3,6.175,0.955,1.015,1.4,1.5,2,0.992,1.1052,1.4,1.5,2.075,0.655,0.715,1.4,1.5,0.5,0.6,0.754,0.877,1.725,0.5,0.6,0.68,0.74,1.45,0.5,0.6,1.355,1.415,2.8,0.5,0.6,1.567,1.627,3.225,1.225,1.5],[2,1,2,2,2,1,2,2,1,2,4,1,4,2,4,8,2,1,2,2,4,5,1,1,2,2,4,2,1,2,2,1,4,2,2,2,1,4,2,2,2,1,4,2,2,2,4,2,1,1,4,8,4,1,4,1,8,4,1,2,2,1,4,4,1,2,2,4,2,2,2,2,2,4,4,3,2,4,3,4,2,1,2,2,4,2,3,1,4,2,2,2,3,8,4,1,3,3,1,2,2,4,2,3,2,2,8,1,3,3,12,6,1,4,3,12,6,1,4,3,2,2,4,2,2,2,2,4,2,2,2,2,6,2,4,2,2,2,2,4,2,2,2,2,4,2,2,2,2,4,2,2,2,2,2,2]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Model<\/th>\n      <th>Length<\/th>\n      <th>Number of Pieces Needed<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-</div>
-<div id="by-length-and-model" class="section level3">
-<h3>By length and model</h3>
-<pre class="r"><code># print summary by length and model
-df %&gt;% 
-  group_by(length, model) %&gt;% 
-  tally() %&gt;% 
-  ungroup() %&gt;% 
-  arrange(desc(length)) %&gt;% 
-  # formatting
-  datatable(
-    colnames = c(&quot;Length&quot;, &quot;Model&quot;,&quot;Number of Pieces Needed&quot;),
-    options = list(
-      pageLength = 6
-    )
-  )</code></pre>
-<div id="htmlwidget-ed91ed5f07aa11e9d458" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-ed91ed5f07aa11e9d458">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156"],[6.175,5.85,5.75,5.6,5.5,4.5,4.1,4.1,4.1,3.875,3.875,3.4,3.225,3.225,3.209,2.8,2.725,2.625,2.475,2.4,2.35,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.265,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.225,2.225,2.2,2.15,2.075,2.075,2.06,2.044,2.035,2,1.957,1.932,1.895,1.895,1.87,1.85,1.85,1.818,1.725,1.627,1.567,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.5,1.45,1.415,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.392,1.377,1.355,1.317,1.317,1.29,1.267,1.265,1.265,1.23,1.225,1.215,1.192,1.19,1.155,1.155,1.15,1.13,1.125,1.122,1.116,1.1052,1.07,1.052,1.052,1.015,1.002,0.992,0.992,0.992,0.955,0.9,0.877,0.875,0.87,0.8,0.8,0.754,0.75,0.75,0.75,0.74,0.715,0.7,0.68,0.655,0.6,0.6,0.6,0.6,0.5,0.5,0.5,0.5],["W19","SD8","SD10","W18","SD7","SD9","W11","W15","W17","SD1","W12","SD10","W14","W8","W14","W7","W13","W1","W16","SD6","SD2","D1","D2","D4","SD1","SD10","SD2","SD3","SD4","SD5","SD6","SD7","SD8","SD9","W13","W14","W15","W16","W17","W18","W19","D4","D1","D2","SD1","SD10","SD2","SD3","SD4","SD5","SD6","SD7","SD8","SD9","W15","W17","W18","W19","SD4","SD5","SD8","SD9","D4","W3","W19","W15","D3","W2","SD1","W12","SD7","SD8","W18","SD3","SD7","W14","W5","W8","W8","W1","W10","W11","W12","W2","W3","W4","W9","W6","W7","W1","W11","W12","W13","W14","W15","W16","W17","W18","W19","W2","W3","W4","W13","W1","W7","W1","W13","SD5","W16","SD10","SD9","SD5","W9","SD6","W16","SD2","SD6","SD9","SD10","SD2","W10","SD4","D3","W3","SD4","W11","W17","W2","D4","W11","W17","W3","W2","D1","W5","SD3","SD3","D1","D2","W5","W13","W14","W16","W6","W4","D2","W6","W4","W5","W6","W7","W8","W5","W6","W7","W8"],[3,1,1,3,1,1,2,3,3,1,2,1,3,2,2,2,3,2,3,1,1,2,2,2,2,5,2,2,2,2,2,4,4,4,2,2,3,2,3,4,4,4,2,2,8,4,4,4,4,4,4,8,8,4,1,1,1,1,1,1,1,1,1,2,6,4,2,2,4,4,4,4,6,1,1,2,2,2,2,2,2,3,3,2,2,2,2,2,2,4,4,4,4,4,8,4,8,12,12,4,4,6,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,2,2,4,2,2,4,2,2,2,2,1,2,2,2,2,1,2,1,1,1,2,2,2,2,2,2,2,2,2,4,4,4,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Length<\/th>\n      <th>Model<\/th>\n      <th>Number of Pieces Needed<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":6,"columnDefs":[{"className":"dt-right","targets":[1,3]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[6,10,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-</div>
-</div>
+  dplyr::filter(! is.na(length)) %&gt;% 
+  separate(type, c(&quot;primary&quot;, &quot;type&quot;), &quot;_&quot;, extra = &quot;merge&quot;)</code></pre>
 <div id="materials-needed" class="section level2 tabset">
 <h2 class="tabset">Materials Needed</h2>
 <p>The tables below gives the calculation for materials needed when grouped by model, type and length.</p>
@@ -396,7 +335,7 @@ df %&gt;%
 df_calc &lt;-
   df %&gt;% 
   # group by model, type and length and get tally
-  group_by(model, type, length) %&gt;% 
+  group_by(model, primary, type, length) %&gt;% 
   tally() %&gt;% 
   ungroup() %&gt;% 
   # calculations
@@ -411,110 +350,28 @@ df_calc &lt;-
 # print table
 df_calc %&gt;% 
   DT::datatable(
-    colnames = c(&quot;Model&quot;, &quot;Type&quot;, &quot;Length&quot;, &quot;Number of Pieces&quot;, &quot;Each Bar (6m) Gives&quot;, &quot;Number of Bars Needed&quot;, &quot;Total Remainder Length&quot;, &quot;Remainder at Max Cap&quot;, &quot;Unused Capacity&quot;)
+    colnames = c(&quot;Model&quot;, &quot;Primary&quot;, &quot;Type&quot;, &quot;Length (m)&quot;, &quot;Number of Pieces&quot;, &quot;Each Bar Gives&quot;, &quot;Number of Bars Needed&quot;, &quot;Total Remainder Length (m)&quot;, &quot;Remainder at Max Cap (m)&quot;, &quot;Unused Capacity (m)&quot;)
   )</code></pre>
-<div id="htmlwidget-fc523daf8068c16dc79d" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-fc523daf8068c16dc79d">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237"],["D1","D1","D1","D1","D1","D1","D2","D2","D2","D2","D2","D2","D3","D3","D4","D4","D4","D4","D4","D4","SD1","SD1","SD1","SD1","SD1","SD1","SD10","SD10","SD10","SD10","SD10","SD10","SD10","SD10","SD10","SD2","SD2","SD2","SD2","SD2","SD2","SD2","SD2","SD3","SD3","SD3","SD3","SD3","SD3","SD3","SD3","SD4","SD4","SD4","SD4","SD4","SD4","SD4","SD4","SD5","SD5","SD5","SD5","SD5","SD5","SD5","SD5","SD6","SD6","SD6","SD6","SD6","SD6","SD6","SD6","SD7","SD7","SD7","SD7","SD7","SD7","SD7","SD8","SD8","SD8","SD8","SD8","SD8","SD8","SD9","SD9","SD9","SD9","SD9","SD9","SD9","SD9","SD9","W1","W1","W1","W1","W1","W1","W1","W1","W10","W10","W11","W11","W11","W11","W11","W11","W11","W11","W12","W12","W12","W12","W12","W12","W13","W13","W13","W13","W13","W13","W13","W13","W13","W14","W14","W14","W14","W14","W14","W14","W14","W14","W15","W15","W15","W15","W15","W15","W15","W16","W16","W16","W16","W16","W16","W16","W16","W16","W17","W17","W17","W17","W17","W17","W17","W17","W17","W18","W18","W18","W18","W18","W18","W18","W19","W19","W19","W19","W19","W19","W19","W2","W2","W2","W2","W2","W2","W2","W2","W3","W3","W3","W3","W3","W3","W3","W3","W4","W4","W4","W4","W4","W4","W4","W4","W5","W5","W5","W5","W5","W5","W5","W5","W6","W6","W6","W6","W6","W6","W6","W6","W7","W7","W7","W7","W7","W7","W7","W7","W8","W8","W8","W8","W8","W8","W8","W8","W9","W9"],["dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","frame_height","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","frame_width_xt_add","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","frame_width_xt_add","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","frame_width_xt_add","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","frame_width_xt_add","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_front","dw_top","frame_height","frame_height_xt_add","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","dw_back","dw_bottom","dw_bottom_xt_add","dw_front","dw_top","dw_top_xt_add","frame_height","frame_width","frame_height","frame_width"],[2.25,0.8,2.25,0.8,2.3,0.9,2.25,0.7,2.25,0.7,2.3,0.8,2.035,1.116,2.265,1.002,2.265,1.002,2.3,2.075,2.25,1.957,2.25,1.957,2.3,3.875,2.25,1.15,1.265,2.25,1.15,1.265,2.3,5.75,3.4,2.25,1.13,1.19,2.25,1.13,1.19,2.3,2.35,2.25,0.875,0.87,2.25,0.875,0.87,2.3,1.85,2.25,1.07,1.122,2.25,1.07,1.122,2.3,2.225,2.25,1.23,1.29,2.25,1.23,1.29,2.3,2.225,2.25,1.155,1.215,2.25,1.155,1.215,2.3,2.4,2.25,1.895,2.25,1.895,2.3,5.5,1.85,2.25,1.895,2.25,1.895,2.3,5.85,2.2,2.25,1.155,1.265,2.25,1.155,1.265,2.3,4.5,2.15,1.4,1.317,1.377,1.4,1.317,1.377,1.5,2.625,1.5,1.125,1.4,1.052,0.992,1.4,1.052,0.992,1.5,4.1,1.4,1.932,1.4,1.932,1.5,3.875,1.4,1.317,1.392,1.4,1.317,1.392,2.3,0.75,2.725,1.4,3.209,1.818,1.4,3.209,1.818,2.3,0.75,3.225,1.4,2.044,1.4,2.044,2.3,2.25,4.1,1.4,1.267,1.192,1.4,1.267,1.192,2.3,0.75,2.475,1.4,1.052,0.992,1.4,1.052,0.992,2.3,2.25,4.1,1.4,1.87,1.4,1.87,2.3,2.25,5.6,1.4,2.06,1.4,2.06,2.3,2.25,6.175,1.4,0.955,1.015,1.4,0.955,1.015,1.5,2,1.4,0.992,1.1052,1.4,0.992,1.1052,1.5,2.075,1.4,0.655,0.715,1.4,0.655,0.715,1.5,1.4,0.5,0.754,0.877,0.5,0.754,0.877,0.6,1.725,0.5,0.68,0.74,0.5,0.68,0.74,0.6,1.45,0.5,1.355,1.415,0.5,1.355,1.415,0.6,2.8,0.5,1.567,1.627,0.5,1.567,1.627,0.6,3.225,1.5,1.225],[1,1,1,1,2,1,1,1,1,1,2,1,2,1,2,2,2,2,2,1,4,2,4,2,2,1,2,1,1,2,1,1,5,1,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,4,2,4,2,4,1,1,4,2,4,2,4,1,1,2,1,1,2,1,1,4,1,1,2,1,1,2,1,1,2,2,2,2,2,2,1,2,2,1,3,2,2,2,2,2,3,2,2,1,1,2,1,1,2,1,3,2,1,1,2,1,1,2,1,3,4,2,4,2,3,1,3,2,1,1,2,1,1,2,1,3,4,1,1,4,1,1,3,1,3,6,3,6,3,4,1,3,6,3,6,3,4,1,3,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,2],[2,7,2,7,2,6,2,8,2,8,2,7,2,5,2,5,2,5,2,2,2,3,2,3,2,1,2,5,4,2,5,4,2,1,1,2,5,5,2,5,5,2,2,2,6,6,2,6,6,2,3,2,5,5,2,5,5,2,2,2,4,4,2,4,4,2,2,2,5,4,2,5,4,2,2,2,3,2,3,2,1,3,2,3,2,3,2,1,2,2,5,4,2,5,4,2,1,2,4,4,4,4,4,4,4,2,4,5,4,5,6,4,5,6,4,1,4,3,4,3,4,1,4,4,4,4,4,4,2,8,2,4,1,3,4,1,3,2,8,1,4,2,4,2,2,2,1,4,4,5,4,4,5,2,8,2,4,5,6,4,5,6,2,2,1,4,3,4,3,2,2,1,4,2,4,2,2,2,0,4,6,5,4,6,5,4,3,4,6,5,4,6,5,4,2,4,9,8,4,9,8,4,4,12,7,6,12,7,6,10,3,12,8,8,12,8,8,10,4,12,4,4,12,4,4,10,2,12,3,3,12,3,3,10,1,4,4],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,2,1,2,1,1,2,1,2,1,2,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,3,1,1,1,1,2,1,3,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,2,1,3,2,1,2,1,2,1,3,2,2,2,2,2,1,null,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1],[3.75,5.2,3.75,5.2,1.4,5.1,3.75,5.3,3.75,5.3,1.4,5.2,1.93,4.884,1.47,3.996,1.47,3.996,1.4,3.925,3,2.086,3,2.086,1.4,2.125,1.5,4.85,4.735,1.5,4.85,4.735,6.5,0.25,2.6,1.5,4.87,4.81,1.5,4.87,4.81,1.4,3.65,1.5,5.125,5.13,1.5,5.125,5.13,1.4,4.15,1.5,4.93,4.878,1.5,4.93,4.878,1.4,3.775,1.5,4.77,4.71,1.5,4.77,4.71,1.4,3.775,1.5,4.845,4.785,1.5,4.845,4.785,1.4,3.6,3,2.21,3,2.21,2.8,0.5,4.15,3,2.21,3,2.21,2.8,0.15,3.8,1.5,4.845,4.735,1.5,4.845,4.735,2.8,1.5,3.85,3.2,4.683,4.623,3.2,4.683,4.623,3,0.75,3,3.75,3.2,3.896,5.008,3.2,3.896,5.008,1.5,3.8,3.2,2.136,3.2,2.136,1.5,4.25,3.2,4.683,4.608,3.2,4.683,4.608,1.4,5.25,3.825,3.2,2.791,4.182,3.2,2.791,4.182,1.4,5.25,8.325,0.4,1.912,0.4,1.912,5.1,3.75,5.7,3.2,4.733,4.808,3.2,4.733,4.808,1.4,5.25,4.575,0.4,4.948,5.008,0.4,4.948,5.008,5.1,3.75,5.7,3.6,0.39,3.6,0.39,2.8,3.75,1.2,3.6,5.82,3.6,5.82,2.8,3.75,null,3.2,5.045,4.985,3.2,5.045,4.985,3,2,3.2,5.008,4.8948,3.2,5.008,4.8948,3,1.85,3.2,5.345,5.285,3.2,5.345,5.285,3,3.2,5,5.246,5.123,5,5.246,5.123,4.8,2.55,5,5.32,5.26,5,5.32,5.26,4.8,3.1,5,4.645,4.585,5,4.645,4.585,4.8,0.4,5,4.433,4.373,5,4.433,4.373,4.8,5.55,3,3.55],[1.5,0.4,1.5,0.4,1.4,0.6,1.5,0.4,1.5,0.4,1.4,0.4,1.93,0.42,1.47,0.99,1.47,0.99,1.4,1.85,1.5,0.13,1.5,0.13,1.4,2.12,1.5,0.25,0.94,1.5,0.25,0.94,1.4,0.25,2.6,1.5,0.35,0.05,1.5,0.35,0.05,1.4,1.3,1.5,0.75,0.78,1.5,0.75,0.78,1.4,0.45,1.5,0.65,0.39,1.5,0.65,0.39,1.4,1.55,1.5,1.08,0.84,1.5,1.08,0.84,1.4,1.55,1.5,0.22,1.14,1.5,0.22,1.14,1.4,1.2,1.5,0.31,1.5,0.31,1.4,0.5,0.45,1.5,0.31,1.5,0.31,1.4,0.15,1.6,1.5,0.22,0.94,1.5,0.22,0.94,1.4,1.5,1.7,0.4,0.73,0.49,0.4,0.73,0.49,0,0.75,0,0.38,0.4,0.74,0.05,0.4,0.74,0.05,0,1.9,0.4,0.2,0.4,0.2,0,2.12,0.4,0.73,0.43,0.4,0.73,0.43,1.4,0,0.55,0.4,2.79,0.55,0.4,2.79,0.55,1.4,0,2.78,0.4,1.91,0.4,1.91,1.4,1.5,1.9,0.4,0.93,0.04,0.4,0.93,0.04,1.4,0,1.05,0.4,0.74,0.05,0.4,0.74,0.05,1.4,1.5,1.9,0.4,0.39,0.4,0.39,1.4,1.5,0.4,0.4,1.88,0.4,1.88,1.4,1.5,6,0.4,0.27,0.93,0.4,0.27,0.93,0,0,0.4,0.05,0.47,0.4,0.05,0.47,0,1.85,0.4,0.1,0.28,0.4,0.1,0.28,0,0.4,0,0.72,0.74,0,0.72,0.74,0,0.82,0,0.56,0.08,0,0.56,0.08,0,0.2,0,0.58,0.34,0,0.58,0.34,0,0.4,0,1.3,1.12,0,1.3,1.12,0,2.78,0,1.1],[2.25,4.8,2.25,4.8,0,4.5,2.25,4.9,2.25,4.9,0,4.8,0,4.464,0,3.006,0,3.006,0,2.075,0,1.957,0,1.957,0,0,0,4.6,3.795,0,4.6,3.795,2.3,0,0,0,4.52,4.76,0,4.52,4.76,0,2.35,0,4.375,4.35,0,4.375,4.35,0,3.7,0,4.28,4.488,0,4.28,4.488,0,2.225,0,3.69,3.87,0,3.69,3.87,0,2.225,0,4.62,3.645,0,4.62,3.645,0,2.4,0,1.895,0,1.895,0,0,3.7,0,1.895,0,1.895,0,0,2.2,0,4.62,3.795,0,4.62,3.795,0,0,2.15,2.8,3.951,4.131,2.8,3.951,4.131,3,0,3,3.375,2.8,3.156,4.96,2.8,3.156,4.96,1.5,0,2.8,1.932,2.8,1.932,1.5,0,2.8,3.951,4.176,2.8,3.951,4.176,0,5.25,2.725,2.8,0,3.636,2.8,0,3.636,0,5.25,0,0,0,0,0,2.3,2.25,0,2.8,3.801,4.768,2.8,3.801,4.768,0,5.25,2.475,0,4.208,4.96,0,4.208,4.96,2.3,2.25,0,2.8,0,2.8,0,0,2.25,0,2.8,2.06,2.8,2.06,0,2.25,null,2.8,4.775,4.06,2.8,4.775,4.06,3,2,2.8,4.96,4.4208,2.8,4.96,4.4208,3,0,2.8,5.24,5.005,2.8,5.24,5.005,3,2.8,5,4.524,4.385,5,4.524,4.385,4.8,1.725,5,4.76,5.18,5,4.76,5.18,4.8,2.9,5,4.065,4.245,5,4.065,4.245,4.8,0,5,3.134,3.254,5,3.134,3.254,4.8,0,3,2.45]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Model<\/th>\n      <th>Type<\/th>\n      <th>Length<\/th>\n      <th>Number of Pieces<\/th>\n      <th>Each Bar (6m) Gives<\/th>\n      <th>Number of Bars Needed<\/th>\n      <th>Total Remainder Length<\/th>\n      <th>Remainder at Max Cap<\/th>\n      <th>Unused Capacity<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7,8,9]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-85cea3c13f996c082a4b" style="width:100%;height:auto;" class="datatables html-widget"></div>
+<script type="application/json" data-for="htmlwidget-85cea3c13f996c082a4b">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237"],["D1","D1","D1","D1","D1","D1","D2","D2","D2","D2","D2","D2","D3","D3","D4","D4","D4","D4","D4","D4","SD1","SD1","SD1","SD1","SD1","SD1","SD10","SD10","SD10","SD10","SD10","SD10","SD10","SD10","SD10","SD2","SD2","SD2","SD2","SD2","SD2","SD2","SD2","SD3","SD3","SD3","SD3","SD3","SD3","SD3","SD3","SD4","SD4","SD4","SD4","SD4","SD4","SD4","SD4","SD5","SD5","SD5","SD5","SD5","SD5","SD5","SD5","SD6","SD6","SD6","SD6","SD6","SD6","SD6","SD6","SD7","SD7","SD7","SD7","SD7","SD7","SD7","SD8","SD8","SD8","SD8","SD8","SD8","SD8","SD9","SD9","SD9","SD9","SD9","SD9","SD9","SD9","SD9","W1","W1","W1","W1","W1","W1","W1","W1","W10","W10","W11","W11","W11","W11","W11","W11","W11","W11","W12","W12","W12","W12","W12","W12","W13","W13","W13","W13","W13","W13","W13","W13","W13","W14","W14","W14","W14","W14","W14","W14","W14","W14","W15","W15","W15","W15","W15","W15","W15","W16","W16","W16","W16","W16","W16","W16","W16","W16","W17","W17","W17","W17","W17","W17","W17","W17","W17","W18","W18","W18","W18","W18","W18","W18","W19","W19","W19","W19","W19","W19","W19","W2","W2","W2","W2","W2","W2","W2","W2","W3","W3","W3","W3","W3","W3","W3","W3","W4","W4","W4","W4","W4","W4","W4","W4","W5","W5","W5","W5","W5","W5","W5","W5","W6","W6","W6","W6","W6","W6","W6","W6","W7","W7","W7","W7","W7","W7","W7","W7","W8","W8","W8","W8","W8","W8","W8","W8","W9","W9"],["dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","frame","frame","frame","frame","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","frame","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","dw","dw","dw","dw","dw","dw","frame","frame","frame","frame"],["back","bottom","front","top","height","width","back","bottom","front","top","height","width","height","width","back","bottom","front","top","height","width","back","bottom","front","top","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","width_xt_add","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","front","top","height","width","width_xt_add","back","bottom","front","top","height","width","width_xt_add","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","width_xt_add","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","front","top","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","height_xt_add","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","height_xt_add","width","back","bottom","front","top","height","height_xt_add","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","height_xt_add","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","height_xt_add","width","back","bottom","front","top","height","height_xt_add","width","back","bottom","front","top","height","height_xt_add","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","back","bottom","bottom_xt_add","front","top","top_xt_add","height","width","height","width"],[2.25,0.8,2.25,0.8,2.3,0.9,2.25,0.7,2.25,0.7,2.3,0.8,2.035,1.116,2.265,1.002,2.265,1.002,2.3,2.075,2.25,1.957,2.25,1.957,2.3,3.875,2.25,1.15,1.265,2.25,1.15,1.265,2.3,5.75,3.4,2.25,1.13,1.19,2.25,1.13,1.19,2.3,2.35,2.25,0.875,0.87,2.25,0.875,0.87,2.3,1.85,2.25,1.07,1.122,2.25,1.07,1.122,2.3,2.225,2.25,1.23,1.29,2.25,1.23,1.29,2.3,2.225,2.25,1.155,1.215,2.25,1.155,1.215,2.3,2.4,2.25,1.895,2.25,1.895,2.3,5.5,1.85,2.25,1.895,2.25,1.895,2.3,5.85,2.2,2.25,1.155,1.265,2.25,1.155,1.265,2.3,4.5,2.15,1.4,1.317,1.377,1.4,1.317,1.377,1.5,2.625,1.5,1.125,1.4,1.052,0.992,1.4,1.052,0.992,1.5,4.1,1.4,1.932,1.4,1.932,1.5,3.875,1.4,1.317,1.392,1.4,1.317,1.392,2.3,0.75,2.725,1.4,3.209,1.818,1.4,3.209,1.818,2.3,0.75,3.225,1.4,2.044,1.4,2.044,2.3,2.25,4.1,1.4,1.267,1.192,1.4,1.267,1.192,2.3,0.75,2.475,1.4,1.052,0.992,1.4,1.052,0.992,2.3,2.25,4.1,1.4,1.87,1.4,1.87,2.3,2.25,5.6,1.4,2.06,1.4,2.06,2.3,2.25,6.175,1.4,0.955,1.015,1.4,0.955,1.015,1.5,2,1.4,0.992,1.1052,1.4,0.992,1.1052,1.5,2.075,1.4,0.655,0.715,1.4,0.655,0.715,1.5,1.4,0.5,0.754,0.877,0.5,0.754,0.877,0.6,1.725,0.5,0.68,0.74,0.5,0.68,0.74,0.6,1.45,0.5,1.355,1.415,0.5,1.355,1.415,0.6,2.8,0.5,1.567,1.627,0.5,1.567,1.627,0.6,3.225,1.5,1.225],[1,1,1,1,2,1,1,1,1,1,2,1,2,1,2,2,2,2,2,1,4,2,4,2,2,1,2,1,1,2,1,1,5,1,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,2,1,1,2,1,1,2,1,4,2,4,2,4,1,1,4,2,4,2,4,1,1,2,1,1,2,1,1,4,1,1,2,1,1,2,1,1,2,2,2,2,2,2,1,2,2,1,3,2,2,2,2,2,3,2,2,1,1,2,1,1,2,1,3,2,1,1,2,1,1,2,1,3,4,2,4,2,3,1,3,2,1,1,2,1,1,2,1,3,4,1,1,4,1,1,3,1,3,6,3,6,3,4,1,3,6,3,6,3,4,1,3,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,1,1,2,1,1,2,2,2,2],[2,7,2,7,2,6,2,8,2,8,2,7,2,5,2,5,2,5,2,2,2,3,2,3,2,1,2,5,4,2,5,4,2,1,1,2,5,5,2,5,5,2,2,2,6,6,2,6,6,2,3,2,5,5,2,5,5,2,2,2,4,4,2,4,4,2,2,2,5,4,2,5,4,2,2,2,3,2,3,2,1,3,2,3,2,3,2,1,2,2,5,4,2,5,4,2,1,2,4,4,4,4,4,4,4,2,4,5,4,5,6,4,5,6,4,1,4,3,4,3,4,1,4,4,4,4,4,4,2,8,2,4,1,3,4,1,3,2,8,1,4,2,4,2,2,2,1,4,4,5,4,4,5,2,8,2,4,5,6,4,5,6,2,2,1,4,3,4,3,2,2,1,4,2,4,2,2,2,0,4,6,5,4,6,5,4,3,4,6,5,4,6,5,4,2,4,9,8,4,9,8,4,4,12,7,6,12,7,6,10,3,12,8,8,12,8,8,10,4,12,4,4,12,4,4,10,2,12,3,3,12,3,3,10,1,4,4],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,2,1,1,1,1,1,1,1,1,1,3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,2,1,2,1,1,2,1,2,1,2,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,2,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,3,1,1,1,1,2,1,3,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,2,1,3,2,1,2,1,2,1,3,2,2,2,2,2,1,null,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1],[3.75,5.2,3.75,5.2,1.4,5.1,3.75,5.3,3.75,5.3,1.4,5.2,1.93,4.884,1.47,3.996,1.47,3.996,1.4,3.925,3,2.086,3,2.086,1.4,2.125,1.5,4.85,4.735,1.5,4.85,4.735,6.5,0.25,2.6,1.5,4.87,4.81,1.5,4.87,4.81,1.4,3.65,1.5,5.125,5.13,1.5,5.125,5.13,1.4,4.15,1.5,4.93,4.878,1.5,4.93,4.878,1.4,3.775,1.5,4.77,4.71,1.5,4.77,4.71,1.4,3.775,1.5,4.845,4.785,1.5,4.845,4.785,1.4,3.6,3,2.21,3,2.21,2.8,0.5,4.15,3,2.21,3,2.21,2.8,0.15,3.8,1.5,4.845,4.735,1.5,4.845,4.735,2.8,1.5,3.85,3.2,4.683,4.623,3.2,4.683,4.623,3,0.75,3,3.75,3.2,3.896,5.008,3.2,3.896,5.008,1.5,3.8,3.2,2.136,3.2,2.136,1.5,4.25,3.2,4.683,4.608,3.2,4.683,4.608,1.4,5.25,3.825,3.2,2.791,4.182,3.2,2.791,4.182,1.4,5.25,8.325,0.4,1.912,0.4,1.912,5.1,3.75,5.7,3.2,4.733,4.808,3.2,4.733,4.808,1.4,5.25,4.575,0.4,4.948,5.008,0.4,4.948,5.008,5.1,3.75,5.7,3.6,0.39,3.6,0.39,2.8,3.75,1.2,3.6,5.82,3.6,5.82,2.8,3.75,null,3.2,5.045,4.985,3.2,5.045,4.985,3,2,3.2,5.008,4.8948,3.2,5.008,4.8948,3,1.85,3.2,5.345,5.285,3.2,5.345,5.285,3,3.2,5,5.246,5.123,5,5.246,5.123,4.8,2.55,5,5.32,5.26,5,5.32,5.26,4.8,3.1,5,4.645,4.585,5,4.645,4.585,4.8,0.4,5,4.433,4.373,5,4.433,4.373,4.8,5.55,3,3.55],[1.5,0.4,1.5,0.4,1.4,0.6,1.5,0.4,1.5,0.4,1.4,0.4,1.93,0.42,1.47,0.99,1.47,0.99,1.4,1.85,1.5,0.13,1.5,0.13,1.4,2.12,1.5,0.25,0.94,1.5,0.25,0.94,1.4,0.25,2.6,1.5,0.35,0.05,1.5,0.35,0.05,1.4,1.3,1.5,0.75,0.78,1.5,0.75,0.78,1.4,0.45,1.5,0.65,0.39,1.5,0.65,0.39,1.4,1.55,1.5,1.08,0.84,1.5,1.08,0.84,1.4,1.55,1.5,0.22,1.14,1.5,0.22,1.14,1.4,1.2,1.5,0.31,1.5,0.31,1.4,0.5,0.45,1.5,0.31,1.5,0.31,1.4,0.15,1.6,1.5,0.22,0.94,1.5,0.22,0.94,1.4,1.5,1.7,0.4,0.73,0.49,0.4,0.73,0.49,0,0.75,0,0.38,0.4,0.74,0.05,0.4,0.74,0.05,0,1.9,0.4,0.2,0.4,0.2,0,2.12,0.4,0.73,0.43,0.4,0.73,0.43,1.4,0,0.55,0.4,2.79,0.55,0.4,2.79,0.55,1.4,0,2.78,0.4,1.91,0.4,1.91,1.4,1.5,1.9,0.4,0.93,0.04,0.4,0.93,0.04,1.4,0,1.05,0.4,0.74,0.05,0.4,0.74,0.05,1.4,1.5,1.9,0.4,0.39,0.4,0.39,1.4,1.5,0.4,0.4,1.88,0.4,1.88,1.4,1.5,6,0.4,0.27,0.93,0.4,0.27,0.93,0,0,0.4,0.05,0.47,0.4,0.05,0.47,0,1.85,0.4,0.1,0.28,0.4,0.1,0.28,0,0.4,0,0.72,0.74,0,0.72,0.74,0,0.82,0,0.56,0.08,0,0.56,0.08,0,0.2,0,0.58,0.34,0,0.58,0.34,0,0.4,0,1.3,1.12,0,1.3,1.12,0,2.78,0,1.1],[2.25,4.8,2.25,4.8,0,4.5,2.25,4.9,2.25,4.9,0,4.8,0,4.464,0,3.006,0,3.006,0,2.075,0,1.957,0,1.957,0,0,0,4.6,3.795,0,4.6,3.795,2.3,0,0,0,4.52,4.76,0,4.52,4.76,0,2.35,0,4.375,4.35,0,4.375,4.35,0,3.7,0,4.28,4.488,0,4.28,4.488,0,2.225,0,3.69,3.87,0,3.69,3.87,0,2.225,0,4.62,3.645,0,4.62,3.645,0,2.4,0,1.895,0,1.895,0,0,3.7,0,1.895,0,1.895,0,0,2.2,0,4.62,3.795,0,4.62,3.795,0,0,2.15,2.8,3.951,4.131,2.8,3.951,4.131,3,0,3,3.375,2.8,3.156,4.96,2.8,3.156,4.96,1.5,0,2.8,1.932,2.8,1.932,1.5,0,2.8,3.951,4.176,2.8,3.951,4.176,0,5.25,2.725,2.8,0,3.636,2.8,0,3.636,0,5.25,0,0,0,0,0,2.3,2.25,0,2.8,3.801,4.768,2.8,3.801,4.768,0,5.25,2.475,0,4.208,4.96,0,4.208,4.96,2.3,2.25,0,2.8,0,2.8,0,0,2.25,0,2.8,2.06,2.8,2.06,0,2.25,null,2.8,4.775,4.06,2.8,4.775,4.06,3,2,2.8,4.96,4.4208,2.8,4.96,4.4208,3,0,2.8,5.24,5.005,2.8,5.24,5.005,3,2.8,5,4.524,4.385,5,4.524,4.385,4.8,1.725,5,4.76,5.18,5,4.76,5.18,4.8,2.9,5,4.065,4.245,5,4.065,4.245,4.8,0,5,3.134,3.254,5,3.134,3.254,4.8,0,3,2.45]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Model<\/th>\n      <th>Primary<\/th>\n      <th>Type<\/th>\n      <th>Length (m)<\/th>\n      <th>Number of Pieces<\/th>\n      <th>Each Bar Gives<\/th>\n      <th>Number of Bars Needed<\/th>\n      <th>Total Remainder Length (m)<\/th>\n      <th>Remainder at Max Cap (m)<\/th>\n      <th>Unused Capacity (m)<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[4,5,6,7,8,9,10]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
 <p>When grouped by individual models, types, and length - <span style="color:#1CA753;">the total number of bars needed are <strong>236</strong> </span>.</p>
-<p><span style="color:red;">Alert to the observation for frame width in model W19: exceeds 6m.</span></p>
-</div>
-<div id="overall-grouped-by-length" class="section level3">
-<h3><mark>Overall, grouped by length</mark></h3>
-<p><span style="color:red;">Note: leftover unusued.</span></p>
-<pre class="r"><code># make table calculations
-df_length &lt;-
-  df %&gt;% 
-  # group by length and tally
-  group_by(length) %&gt;% 
-  tally() %&gt;% 
-  ungroup() %&gt;% 
-  # calculations
-  mutate(each_bar_gives = bar_length %/% length,
-         bar_needed = ceiling(n/each_bar_gives),
-         remainder_length_total = (bar_length*bar_needed) - (length*n), # also remainder_at_max_cap * bars_needed + unused capacity
-         remainder_at_max_cap = round(bar_length - (each_bar_gives*length), 2),
-         unused_capacity = (bar_needed*each_bar_gives - n)*length)
-
-# print table
-df_length %&gt;% 
-  arrange(desc(length)) %&gt;% 
-  DT::datatable(
-    colnames = c(&quot;Length&quot;, &quot;Number of Pieces&quot;, &quot;Each Bar (6m) Gives&quot;, &quot;Number of Bars Needed&quot;, &quot;Total Remainder Length&quot;, &quot;Remainder at Max Cap&quot;, &quot;Unused Capacity&quot;)
-  )</code></pre>
-<div id="htmlwidget-5cb66e9f1b91937c9dad" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-5cb66e9f1b91937c9dad">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80"],[6.175,5.85,5.75,5.6,5.5,4.5,4.1,3.875,3.4,3.225,3.209,2.8,2.725,2.625,2.475,2.4,2.35,2.3,2.265,2.25,2.225,2.2,2.15,2.075,2.06,2.044,2.035,2,1.957,1.932,1.895,1.87,1.85,1.818,1.725,1.627,1.567,1.5,1.45,1.415,1.4,1.392,1.377,1.355,1.317,1.29,1.267,1.265,1.23,1.225,1.215,1.192,1.19,1.155,1.15,1.13,1.125,1.122,1.116,1.1052,1.07,1.052,1.015,1.002,0.992,0.955,0.9,0.877,0.875,0.87,0.8,0.754,0.75,0.74,0.715,0.7,0.68,0.655,0.6,0.5],[3,1,1,3,1,1,8,3,1,5,2,2,3,2,3,1,1,55,4,60,2,1,1,3,6,4,2,2,4,4,8,6,2,2,2,2,2,18,2,2,78,2,2,2,4,2,2,4,2,2,2,2,2,4,2,2,2,2,1,2,2,6,2,4,6,2,1,2,2,2,3,2,3,2,2,2,2,2,8,16],[0,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,5,5,5,5,6,6,6,6,6,6,7,7,8,8,8,8,8,9,10,12],[null,1,1,3,1,1,8,3,1,5,2,1,2,1,2,1,1,28,2,30,1,1,1,2,3,2,1,1,2,2,3,2,1,1,1,1,1,5,1,1,20,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,2],[null,0.15,0.25,1.2,0.5,1.5,15.2,6.375,2.6,13.875,5.582,0.4,3.825,0.75,4.575,3.6,3.65,41.5,2.94,45,1.55,3.8,3.85,5.775,5.64,3.824,1.93,2,4.172,4.272,2.84,0.779999999999999,2.3,2.364,2.55,2.746,2.866,3,3.1,3.17,10.8,3.216,3.246,3.29,0.732,3.42,3.466,0.94,3.54,3.55,3.57,3.616,3.62,1.38,3.7,3.74,3.75,3.756,4.884,3.7896,3.86,5.688,3.97,1.992,0.048,4.09,5.1,4.246,4.25,4.26,3.6,4.492,3.75,4.52,4.57,4.6,4.64,4.69,1.2,4],[6,0.15,0.25,0.4,0.5,1.5,1.9,2.12,2.6,2.78,2.79,0.4,0.55,0.75,1.05,1.2,1.3,1.4,1.47,1.5,1.55,1.6,1.7,1.85,1.88,1.91,1.93,0,0.13,0.2,0.31,0.39,0.45,0.55,0.82,1.12,1.3,0,0.2,0.34,0.4,0.43,0.49,0.58,0.73,0.84,0.93,0.94,1.08,1.1,1.14,0.04,0.05,0.22,0.25,0.35,0.38,0.39,0.42,0.47,0.65,0.74,0.93,0.99,0.05,0.27,0.6,0.74,0.75,0.78,0.4,0.72,0,0.08,0.28,0.4,0.56,0.1,0,0],[null,0,0,0,0,0,0,0,0,0,0,0,2.725,0,2.475,2.4,2.35,2.3,0,0,0,2.2,2.15,2.075,0,0,0,2,3.914,3.864,1.895,0,1.85,1.818,1.725,1.627,1.567,3,2.9,2.83,2.8,2.784,2.754,2.71,0,2.58,2.534,0,2.46,2.45,2.43,3.576,3.57,1.155,3.45,3.39,3.375,3.366,4.464,3.3156,3.21,4.208,3.045,1.002,0,3.82,4.5,3.508,3.5,3.48,3.2,3.77,3.75,4.44,4.29,4.2,4.08,4.585,1.2,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Length<\/th>\n      <th>Number of Pieces<\/th>\n      <th>Each Bar (6m) Gives<\/th>\n      <th>Number of Bars Needed<\/th>\n      <th>Total Remainder Length<\/th>\n      <th>Remainder at Max Cap<\/th>\n      <th>Unused Capacity<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
-<p>When grouped by length, still having unused capacity, <mark> the total number of bars needed are <strong>79</strong> </mark>.</p>
-<p><span style="color:red;">Alert to the observation for frame width in model W19: exceeds 6m.</span></p>
-</div>
-<div id="overall-grouped-by-length-with-bins" class="section level3">
-<h3>Overall, grouped by length (with bins)</h3>
-<p><span style="color:red;">Note: leftover unusued.</span></p>
-<pre class="r"><code>df_with_bins &lt;-
-  df %&gt;%
-  # make bins
-  mutate(
-    bins = cut(length, 
-               breaks = c(seq(0, 6, 0.5)),
-               labels = c(seq(0.5, 6, 0.5)) %&gt;% 
-                 as.character(),
-               right = FALSE)
-  ) %&gt;% 
-  # group by bins and tally
-  group_by(bins) %&gt;% 
-  tally() %&gt;% 
-  ungroup() %&gt;% 
-  # rename bins to length and arrange to desc order
-  rename(length = bins) %&gt;% 
-  arrange(desc(length)) %&gt;% 
-  
-  mutate(
-    # change bins (fct) to numeric variable
-    length = as.character(length),
-    length = as.double(length),
-    
-    # calculations
-    each_bar_gives = bar_length %/% length,
-    bar_needed = ceiling(n/each_bar_gives),
-    remainder_length_total = (bar_length*bar_needed) - (length*n), # also remainder_at_max_cap * bars_needed + unused capacity
-    remainder_at_max_cap = bar_length - (each_bar_gives*length),
-    unused_capacity = (bar_needed*each_bar_gives - n)*length
-  )
-
-# print table
-df_with_bins %&gt;% 
-  datatable(
-    colnames = c(&quot;Length (with Bins)&quot;, &quot;Number of Pieces&quot;, &quot;Each Bar (6m) Gives&quot;, &quot;Number of Bars Needed&quot;, &quot;Total Remainder Length&quot;, &quot;Remainder at Max Cap&quot;, &quot;Unused Capacity&quot;),
-    options = list(
-      pageLength = 11
-    )
-  )</code></pre>
-<div id="htmlwidget-e7f9a7996804d6d8db45" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-e7f9a7996804d6d8db45">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11"],[6,5,4.5,4,3.5,3,2.5,2,1.5,1,null],[6,1,8,3,8,7,145,50,139,57,3],[1,1,1,1,1,2,2,3,4,6,null],[6,1,8,3,8,4,73,17,35,10,null],[0,1,12,6,20,3,75.5,2,1.5,3,null],[0,1,1.5,2,2.5,0,1,0,0,0,null],[0,0,0,0,0,3,2.5,2,1.5,3,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Length (with Bins)<\/th>\n      <th>Number of Pieces<\/th>\n      <th>Each Bar (6m) Gives<\/th>\n      <th>Number of Bars Needed<\/th>\n      <th>Total Remainder Length<\/th>\n      <th>Remainder at Max Cap<\/th>\n      <th>Unused Capacity<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":11,"columnDefs":[{"className":"dt-right","targets":[1,2,3,4,5,6,7]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,11,25,50,100]}},"evals":[],"jsHooks":[]}</script>
-<p>With bins, still having unused capacity, <span style="color:#1CA753;">the total number of bars needed are <strong>165</strong></span>.</p>
 <p><span style="color:red;">Alert to the observation for frame width in model W19: exceeds 6m.</span></p>
 </div>
 </div>
 <div id="legend" class="section level2">
 <h2>Legend</h2>
 <pre class="r"><code># get unique legend values
-legend_type &lt;- df_calc$type %&gt;% unique()
+unique &lt;- c(&quot;dw&quot;, &quot;frame&quot;, 
+            &quot;front&quot;, &quot;bottom&quot;, &quot;top&quot;, &quot;height&quot;, &quot;width&quot;, &quot;xt&quot;,
+            &quot;D&quot;, &quot;SD&quot;, &quot;W&quot;)
 
 # make description vector
-legend_type_explanation &lt;- c(
-  &quot;Door/Windows - Back&quot;,
-  &quot;Door/Windows - Bottom&quot;,
-  &quot;Door/Windows - Front&quot;,
-  &quot;Door/Windows - Top&quot;,
-  &quot;Frame - Height&quot;,
-  &quot;Frame - Width&quot;, 
-  &quot;Door/Windows - Bottom, Extra Additions&quot;,
-  &quot;Door/Windows - Top, Extra Additions&quot;,
-  &quot;Frame - Width, Extra Additions&quot;,
-  &quot;Frame - Height, Extra Additions&quot;
-)
+legend_type_explanation &lt;- c(&quot;Doors / Windows&quot;, &quot;Frame&quot;, 
+                             &quot;Front&quot;, &quot;Bottom&quot;, &quot;Top&quot;, &quot;Height&quot;, &quot;Width&quot;, &quot;Extra Additions&quot;, 
+                             &quot;Doors&quot;, &quot;Sliding Doors&quot;, &quot;Windows&quot;)
 
 # make tibble
-legend &lt;- tibble(legend_type, legend_type_explanation)
+legend &lt;- tibble(unique, legend_type_explanation)
 
 # print table
 legend %&gt;% 
@@ -534,82 +391,90 @@ Description
 <tbody>
 <tr>
 <td style="text-align:left;">
-dw_back
+dw
 </td>
 <td style="text-align:left;">
-Door/Windows - Back
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-dw_bottom
-</td>
-<td style="text-align:left;">
-Door/Windows - Bottom
+Doors / Windows
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-dw_front
+frame
 </td>
 <td style="text-align:left;">
-Door/Windows - Front
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-dw_top
-</td>
-<td style="text-align:left;">
-Door/Windows - Top
+Frame
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-frame_height
+front
 </td>
 <td style="text-align:left;">
-Frame - Height
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-frame_width
-</td>
-<td style="text-align:left;">
-Frame - Width
+Front
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-dw_bottom_xt_add
+bottom
 </td>
 <td style="text-align:left;">
-Door/Windows - Bottom, Extra Additions
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
-dw_top_xt_add
-</td>
-<td style="text-align:left;">
-Door/Windows - Top, Extra Additions
+Bottom
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-frame_width_xt_add
+top
 </td>
 <td style="text-align:left;">
-Frame - Width, Extra Additions
+Top
 </td>
 </tr>
 <tr>
 <td style="text-align:left;">
-frame_height_xt_add
+height
 </td>
 <td style="text-align:left;">
-Frame - Height, Extra Additions
+Height
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+width
+</td>
+<td style="text-align:left;">
+Width
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+xt
+</td>
+<td style="text-align:left;">
+Extra Additions
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+D
+</td>
+<td style="text-align:left;">
+Doors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+SD
+</td>
+<td style="text-align:left;">
+Sliding Doors
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+W
+</td>
+<td style="text-align:left;">
+Windows
 </td>
 </tr>
 </tbody>
@@ -617,11 +482,7 @@ Frame - Height, Extra Additions
 </div>
 <div id="raw-data" class="section level2">
 <h2>Raw Data</h2>
-<pre class="r"><code># show table
-df_raw %&gt;% 
-  datatable()</code></pre>
-<div id="htmlwidget-f2a88138dc6ffe93228b" style="width:100%;height:auto;" class="datatables html-widget"></div>
-<script type="application/json" data-for="htmlwidget-f2a88138dc6ffe93228b">{"x":{"filter":"none","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33"],["D1","D2","D3","D4","SD1","SD2","SD3","SD4","SD5","SD6","SD7","SD8","SD9","SD10","W1","W2","W3","W4","W5","W6","W7","W8","W9","W10","W11","W12","W13","W14","W15","W16","W17","W18","W19"],[2.3,2.3,2.035,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,2.3,1.5,1.5,1.5,1.5,0.6,0.6,0.6,0.6,1.5,1.5,1.5,1.5,2.3,2.3,2.3,2.3,2.3,2.3,2.3],[2,2,2,2,2,2,2,2,2,2,4,4,4,5,2,2,2,2,2,2,2,2,2,2,3,3,2,2,3,2,3,4,4],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0.75,0.75,2.25,0.75,2.25,2.25,2.25],[0.9,0.8,1.116,2.075,3.875,2.35,1.85,2.225,2.225,2.4,5.5,5.85,4.5,5.75,2.625,2,2.075,1.4,1.725,1.45,2.8,3.225,1.225,1.125,4.1,3.875,2.725,3.225,4.1,2.475,4.1,5.6,6.175],[1,1,1,1,1,1,1,1,1,1,1,1,1,1,2,2,2,2,2,2,2,2,2,2,2,2,3,3,3,3,3,3,3],[null,null,null,null,null,null,null,null,null,null,1.85,2.2,2.15,3.4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[2.25,2.25,null,2.265,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,1.4,1.4,1.4,1.4,0.5,0.5,0.5,0.5,null,null,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4],[1,1,1,2,4,2,2,2,2,2,4,4,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,4,2,4,6,6],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[2.25,2.25,null,2.265,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,2.25,1.4,1.4,1.4,1.4,0.5,0.5,0.5,0.5,null,null,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4],[1,1,1,2,4,2,2,2,2,2,4,4,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,4,2,4,6,6],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[0.8,0.7,null,1.002,1.957,1.13,0.875,1.07,1.23,1.155,1.895,1.895,1.155,1.15,1.317,0.955,0.992,0.655,0.754,0.68,1.355,1.567,null,null,1.052,1.932,1.317,3.209,2.044,1.267,1.052,1.87,2.06],[1,1,1,2,2,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,2,1,1,3,3],[null,null,null,null,null,1.19,0.87,1.122,1.29,1.215,null,null,1.265,1.265,1.377,1.015,1.1052,0.715,0.877,0.74,1.415,1.627,null,null,0.992,null,1.392,1.818,null,1.192,0.992,null,null],[0.8,0.7,null,1.002,1.957,1.13,0.875,1.07,1.23,1.155,1.895,1.895,1.155,1.15,1.317,0.955,0.992,0.655,0.754,0.68,1.355,1.567,null,null,1.052,1.932,1.317,3.209,2.044,1.267,1.052,1.87,2.06],[1,1,1,2,2,1,1,1,1,1,2,2,1,1,1,1,1,1,1,1,1,1,1,1,2,2,1,1,2,1,1,3,3],[null,null,null,null,null,1.19,0.87,1.122,1.29,1.215,null,null,1.265,1.265,1.377,1.015,1.1052,0.715,0.877,0.74,1.415,1.627,null,null,0.992,null,1.392,1.818,null,1.192,0.992,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>model<\/th>\n      <th>frame_height<\/th>\n      <th>frame_height_multiplier<\/th>\n      <th>frame_height_xt_add<\/th>\n      <th>frame_width<\/th>\n      <th>frame_width_multiplier<\/th>\n      <th>frame_width_xt_add<\/th>\n      <th>dw_front<\/th>\n      <th>dw_front_multiplier<\/th>\n      <th>dw_front_xt_add<\/th>\n      <th>dw_back<\/th>\n      <th>dw_back_multiplier<\/th>\n      <th>dw_back_xt_add<\/th>\n      <th>dw_top<\/th>\n      <th>dw_top_multiplier<\/th>\n      <th>dw_top_xt_add<\/th>\n      <th>dw_bottom<\/th>\n      <th>dw_bottom_multiplier<\/th>\n      <th>dw_bottom_xt_add<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6,7,8,9,11,12,14,15,16,17,18,19]},{"orderable":false,"targets":0}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+<p>The raw data is imported from an excel file named <code>material.xlsx</code> and can be downloaded <a href="https://github.com/dvannanda/paktulay-doors/blob/main/data/materials.xlsx?raw=true">here</a>.</p>
 </div>
 
 

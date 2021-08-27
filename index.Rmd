@@ -22,9 +22,7 @@ library(here)
 library(DT)
 ```
 
-The raw data is imported from an excel file named `material.xlsx` and can be seen at the end of the report. 
-
-Download the data [here](https://github.com/dvannanda/paktulay-doors/blob/main/data/materials.xlsx?raw=true).
+The main data tables in this report can be viewed in google sheets [here](https://docs.google.com/spreadsheets/d/1Fwp5bj1Q6TyonGrFc_UbmCjGx5BnOrHNWFhvGsx0-A0/edit?usp=sharing). See `calculations` tabs.
 
 ```{r data-[preparation}
 filename = "materials.xlsx"
@@ -66,67 +64,10 @@ df <-
   # join with extra additions
   full_join(xt_add, by = c("model", "type", "length")) %>% 
   # remove length = NA
-  dplyr::filter(! is.na(length))
+  dplyr::filter(! is.na(length)) %>% 
+  separate(type, c("primary", "type"), "_", extra = "merge")
 ```
 
-## Overview {.tabset}
-
-### By model, type and length
-
-```{r summary-data}
-# make summary data to save to csv
-df_summary <- 
-  df %>% 
-  group_by(model, type, length) %>% 
-  # get number of pieces needed according to group 
-  tally() %>% 
-  ungroup()
-
-# save summary data to csv
-write_csv(df_summary, file = "data/summary.csv")
-
-# print summary data
-df_summary %>% 
-  datatable(
-    colnames = c("Model", "Type", "Length", "Number of Pieces Needed"),
-    options = list(
-      pageLength = 6
-    )
-  )
-```
-
-### By model and length
-
-```{r summary-model-length}
-# print summary by model and length
-df %>% 
-  group_by(model, length) %>% 
-  tally() %>% 
-  # formatting
-  datatable(
-    colnames = c("Model", "Length", "Number of Pieces Needed"),
-    options = list(
-      pageLength = 6
-    )
-  )
-```
-
-### By length and model
-```{r summary-length-model}
-# print summary by length and model
-df %>% 
-  group_by(length, model) %>% 
-  tally() %>% 
-  ungroup() %>% 
-  arrange(desc(length)) %>% 
-  # formatting
-  datatable(
-    colnames = c("Length", "Model","Number of Pieces Needed"),
-    options = list(
-      pageLength = 6
-    )
-  )
-```
 
 ## Materials Needed {.tabset}
 
@@ -159,7 +100,7 @@ bar_length = 6
 df_calc <-
   df %>% 
   # group by model, type and length and get tally
-  group_by(model, type, length) %>% 
+  group_by(model, primary, type, length) %>% 
   tally() %>% 
   ungroup() %>% 
   # calculations
@@ -174,7 +115,7 @@ df_calc <-
 # print table
 df_calc %>% 
   DT::datatable(
-    colnames = c("Model", "Type", "Length", "Number of Pieces", "Each Bar (6m) Gives", "Number of Bars Needed", "Total Remainder Length", "Remainder at Max Cap", "Unused Capacity")
+    colnames = c("Model", "Primary", "Type", "Length (m)", "Number of Pieces", "Each Bar Gives", "Number of Bars Needed", "Total Remainder Length (m)", "Remainder at Max Cap (m)", "Unused Capacity (m)")
   )
 ```
 
@@ -182,110 +123,21 @@ When grouped by individual models, types, and length - <span style="color:#1CA75
 
 <span style="color:red;">Alert to the observation for frame width in model W19: exceeds 6m.</span>
 
-
-### <mark>Overall, grouped by length</mark>
-
-<span style="color:red;">Note: leftover unusued.</span>
-
-```{r calc-overall-length}
-# make table calculations
-df_length <-
-  df %>% 
-  # group by length and tally
-  group_by(length) %>% 
-  tally() %>% 
-  ungroup() %>% 
-  # calculations
-  mutate(each_bar_gives = bar_length %/% length,
-         bar_needed = ceiling(n/each_bar_gives),
-         remainder_length_total = (bar_length*bar_needed) - (length*n), # also remainder_at_max_cap * bars_needed + unused capacity
-         remainder_at_max_cap = round(bar_length - (each_bar_gives*length), 2),
-         unused_capacity = (bar_needed*each_bar_gives - n)*length)
-
-# print table
-df_length %>% 
-  arrange(desc(length)) %>% 
-  DT::datatable(
-    colnames = c("Length", "Number of Pieces", "Each Bar (6m) Gives", "Number of Bars Needed", "Total Remainder Length", "Remainder at Max Cap", "Unused Capacity")
-  )
-```
-
-When grouped by length, still having unused capacity, <mark> the total number of bars needed are **`r df_length$bar_needed %>% is.finite() %>%  sum(na.rm = T)`** </mark>.
-
-<span style="color:red;">Alert to the observation for frame width in model W19: exceeds 6m.</span>
-
-### Overall, grouped by length (with bins)
-
-<span style="color:red;">Note: leftover unusued.</span>
-
-```{r calc-overall-length-bins}
-df_with_bins <-
-  df %>%
-  # make bins
-  mutate(
-    bins = cut(length, 
-               breaks = c(seq(0, 6, 0.5)),
-               labels = c(seq(0.5, 6, 0.5)) %>% 
-                 as.character(),
-               right = FALSE)
-  ) %>% 
-  # group by bins and tally
-  group_by(bins) %>% 
-  tally() %>% 
-  ungroup() %>% 
-  # rename bins to length and arrange to desc order
-  rename(length = bins) %>% 
-  arrange(desc(length)) %>% 
-  
-  mutate(
-    # change bins (fct) to numeric variable
-    length = as.character(length),
-    length = as.double(length),
-    
-    # calculations
-    each_bar_gives = bar_length %/% length,
-    bar_needed = ceiling(n/each_bar_gives),
-    remainder_length_total = (bar_length*bar_needed) - (length*n), # also remainder_at_max_cap * bars_needed + unused capacity
-    remainder_at_max_cap = bar_length - (each_bar_gives*length),
-    unused_capacity = (bar_needed*each_bar_gives - n)*length
-  )
-
-# print table
-df_with_bins %>% 
-  datatable(
-    colnames = c("Length (with Bins)", "Number of Pieces", "Each Bar (6m) Gives", "Number of Bars Needed", "Total Remainder Length", "Remainder at Max Cap", "Unused Capacity"),
-    options = list(
-      pageLength = 11
-    )
-  )
-```
-
-With bins, still having unused capacity, <span style="color:#1CA753;">the total number of bars needed are **`r df_with_bins$bar_needed %>% sum(na.rm = T)`**</span>.
-
-<span style="color:red;">Alert to the observation for frame width in model W19: exceeds 6m.</span>
-
 ## Legend
 
 ```{r legend}
 # get unique legend values
-legend_type <- df_calc$type %>% unique()
+unique <- c("dw", "frame", 
+            "front", "bottom", "top", "height", "width", "xt",
+            "D", "SD", "W")
 
 # make description vector
-legend_type_explanation <- c(
-  "Door/Windows - Back",
-  "Door/Windows - Bottom",
-  "Door/Windows - Front",
-  "Door/Windows - Top",
-  "Frame - Height",
-  "Frame - Width", 
-  "Door/Windows - Bottom, Extra Additions",
-  "Door/Windows - Top, Extra Additions",
-  "Frame - Width, Extra Additions",
-  "Frame - Height, Extra Additions"
-)
+legend_type_explanation <- c("Doors / Windows", "Frame", 
+                             "Front", "Bottom", "Top", "Height", "Width", "Extra Additions", 
+                             "Doors", "Sliding Doors", "Windows")
 
 # make tibble
-legend <- tibble(legend_type, legend_type_explanation)
+legend <- tibble(unique, legend_type_explanation)
 
 # print table
 legend %>% 
@@ -295,11 +147,5 @@ legend %>%
 
 ## Raw Data
 
-```{r raw-data}
-# show table
-df_raw %>% 
-  datatable()
-```
-
-
-
+The raw data is imported from an excel file named `material.xlsx` and can be downloaded 
+[here](https://github.com/dvannanda/paktulay-doors/blob/main/data/materials.xlsx?raw=true).
