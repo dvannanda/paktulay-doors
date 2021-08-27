@@ -69,7 +69,7 @@ df <-
 ```
 
 
-## Materials Needed {.tabset}
+## Materials Needed
 
 The tables below gives the calculation for materials needed when grouped by model, type and length. 
 
