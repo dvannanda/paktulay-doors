@@ -132,8 +132,8 @@ df_summary <-
 df_summary2 <-
   df %>% 
   # separate materials 
-  separate(materi, c("materi1", "materi2"), "[+]", extra = "merge") %>% 
-  separate(materi2, c("materi2", "materi3"), "[+]") %>% 
+  separate(materi, c("materi1", "materi2"), " [+] ", extra = "merge") %>% 
+  separate(materi2, c("materi2", "materi3"), " [+] ") %>% 
   # convert back into one column
   pivot_longer(cols = starts_with("materi"), 
                names_to = "label",
@@ -292,6 +292,13 @@ df_calc_over6 <-
     c(`kapasitas tidak terpakai (mm)` ,`sisa max kapasitas (mm)`, `sisa total (mm)`),
     .after = `nomer bar perlu`
   )
+
+material_needed_over6 <-
+  df_calc_over6 %>% 
+  group_by(materi) %>% 
+  summarise(total.over6 = sum(`nomer bar perlu`)) %>% 
+  ungroup() %>% 
+  arrange(desc(total.over6))
 ```
 
 ```{r over6-materials-needed}
@@ -346,8 +353,8 @@ material_needed_over6_2 <-
 
 ```{r}
 materials_needed_total <-
-  material_needed2 %>% 
-  left_join(material_needed_over6_2, by = "materi") %>% 
+  material_needed1 %>% 
+  left_join(material_needed_over6, by = "materi") %>% 
   pivot_longer(cols = c(total, total.over6),
                names_to = "temp",
                values_to = "total") %>% 

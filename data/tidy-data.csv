@@ -20,7 +20,7 @@ D04,pintu,daun-pintu,lebar,atas,PANEL,2,1002,1
 D04,pintu,daun-pintu,lebar,bawah,PANEL,2,1002,1
 D04,pintu,daun-pintu,tinggi,depan,PANEL,2,2265,1
 D04,pintu,daun-pintu,tinggi,belakang,PANEL,2,2265,1
-SD01,sliding door,kusen,lebar,atas,M4''+ TUTUP GOT,1,3875,1
+SD01,sliding door,kusen,lebar,atas,M4'' + TUTUP GOT,1,3875,1
 SD01,sliding door,kusen,tinggi,kiri,M4'',1,2300,1
 SD01,sliding door,kusen,tinggi,kanan,M4'',1,2300,1
 SD01,sliding door,panel-mati,lebar,bawah,1/2M + TUTUP,2,956,1
@@ -29,8 +29,8 @@ SD01,sliding door,panel-sliding,lebar,atas,AMBANG ATAS,2,1016,1
 SD01,sliding door,panel-sliding,lebar,bawah,AMBANG BAWAH,2,1016,1
 SD01,sliding door,panel-sliding,tinggi,depan,TIANG MOHER DEPAN,2,2265,1
 SD01,sliding door,panel-sliding,tinggi,belakang,TIANG MOHER SAMPING,2,2265,1
-SD02,sliding door,kusen,lebar,atas,M4''+ TUTUP GOT,1,2350,3
-SD02,sliding door,kusen,tinggi,kiri,M4''+ TUTUP GOT,1,2300,3
+SD02,sliding door,kusen,lebar,atas,M4'' + TUTUP GOT,1,2350,3
+SD02,sliding door,kusen,tinggi,kiri,M4'' + TUTUP GOT,1,2300,3
 SD02,sliding door,kusen,tinggi,kanan,M4'',1,2300,3
 SD02,sliding door,panel-mati,lebar,bawah,1/2M + TUTUP,1,1145,3
 SD02,sliding door,panel-mati,tinggi,depan,OB4'' + TUTUP M,1,2265,3
@@ -38,8 +38,8 @@ SD02,sliding door,panel-sliding,lebar,atas,AMBANG ATAS,1,1206,3
 SD02,sliding door,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1206,3
 SD02,sliding door,panel-sliding,tinggi,depan,TIANG MOHER DEPAN,1,2265,3
 SD02,sliding door,panel-sliding,tinggi,belakang,TIANG MOHER SAMPING,1,2265,3
-SD03,sliding door,kusen,lebar,atas,M4''+ TUTUP GOT,1,1850,2
-SD03,sliding door,kusen,tinggi,kiri,M4''+ TUTUP GOT,1,2300,2
+SD03,sliding door,kusen,lebar,atas,M4'' + TUTUP GOT,1,1850,2
+SD03,sliding door,kusen,tinggi,kiri,M4'' + TUTUP GOT,1,2300,2
 SD03,sliding door,kusen,tinggi,kanan,M4'',1,2300,2
 SD03,sliding door,panel-mati,lebar,bawah,1/2M + TUTUP,1,895,2
 SD03,sliding door,panel-mati,tinggi,depan,OB4'' + TUTUP M,1,2265,2
@@ -47,17 +47,17 @@ SD03,sliding door,panel-sliding,lebar,atas,AMBANG ATAS,1,955,2
 SD03,sliding door,panel-sliding,lebar,bawah,AMBANG BAWAH,1,955,2
 SD03,sliding door,panel-sliding,tinggi,depan,TIANG MOHER DEPAN,1,2265,2
 SD03,sliding door,panel-sliding,tinggi,belakang,TIANG MOHER SAMPING,1,2265,2
-SD04,sliding door,kusen,lebar,atas,M4''+ TUTUP GOT,1,2225,1
+SD04,sliding door,kusen,lebar,atas,M4'' + TUTUP GOT,1,2225,1
 SD04,sliding door,kusen,tinggi,kiri,M4'',1,2300,1
-SD04,sliding door,kusen,tinggi,kanan,M4''+ TUTUP GOT,1,2300,1
+SD04,sliding door,kusen,tinggi,kanan,M4'' + TUTUP GOT,1,2300,1
 SD04,sliding door,panel-mati,lebar,bawah,1/2M + TUTUP,1,1082,1
 SD04,sliding door,panel-mati,tinggi,depan,OB4'' + TUTUP M,1,2265,1
 SD04,sliding door,panel-sliding,lebar,atas,AMBANG ATAS,1,1142,1
 SD04,sliding door,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1142,1
 SD04,sliding door,panel-sliding,tinggi,depan,TIANG MOHER DEPAN,1,2265,1
 SD04,sliding door,panel-sliding,tinggi,belakang,TIANG MOHER SAMPING,1,2265,1
-SD05,sliding door,kusen,lebar,atas,M4''+ TUTUP GOT,1,2550,2
-SD05,sliding door,kusen,tinggi,kiri,M4''+ TUTUP GOT,1,2300,2
+SD05,sliding door,kusen,lebar,atas,M4'' + TUTUP GOT,1,2550,2
+SD05,sliding door,kusen,tinggi,kiri,M4'' + TUTUP GOT,1,2300,2
 SD05,sliding door,kusen,tinggi,kanan,M4'',1,2300,2
 SD05,sliding door,panel-mati,lebar,bawah,1/2M + TUTUP,1,1245,2
 SD05,sliding door,panel-mati,tinggi,depan,OB4'' + TUTUP M,1,2265,2
@@ -65,8 +65,8 @@ SD05,sliding door,panel-sliding,lebar,atas,AMBANG ATAS,1,1305,2
 SD05,sliding door,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1305,2
 SD05,sliding door,panel-sliding,tinggi,depan,TIANG MOHER DEPAN,1,2265,2
 SD05,sliding door,panel-sliding,tinggi,belakang,TIANG MOHER SAMPING,1,2265,2
-SD06,sliding door,kusen,lebar,atas,M4''+ TUTUP GOT,1,2400,1
-SD06,sliding door,kusen,tinggi,kiri,M4''+ TUTUP GOT,1,2300,1
+SD06,sliding door,kusen,lebar,atas,M4'' + TUTUP GOT,1,2400,1
+SD06,sliding door,kusen,tinggi,kiri,M4'' + TUTUP GOT,1,2300,1
 SD06,sliding door,kusen,tinggi,kanan,M4'',1,2300,1
 SD06,sliding door,panel-mati,lebar,bawah,1/2M + TUTUP,1,1170,1
 SD06,sliding door,panel-mati,tinggi,depan,OB4'' + TUTUP M,1,2265,1
@@ -74,7 +74,7 @@ SD06,sliding door,panel-sliding,lebar,atas,AMBANG ATAS,1,1230,1
 SD06,sliding door,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1230,1
 SD06,sliding door,panel-sliding,tinggi,depan,TIANG MOHER DEPAN,1,2265,1
 SD06,sliding door,panel-sliding,tinggi,belakang,TIANG MOHER SAMPING,1,2265,1
-SD07,sliding door,kusen,lebar,atas,M4''+ TUTUP GOT,1,5500,1
+SD07,sliding door,kusen,lebar,atas,M4'' + TUTUP GOT,1,5500,1
 SD07,sliding door,kusen,tinggi,kiri,M4'',1,2300,1
 SD07,sliding door,kusen,tinggi,tengah,M4'' + TUTUP M,2,2300,1
 SD07,sliding door,kusen,tinggi,kanan,M4'',1,2300,1
@@ -85,7 +85,7 @@ SD07,sliding door,panel-sliding,lebar,bawah,AMBANG BAWAH,2,985,1
 SD07,sliding door,panel-sliding,tinggi,depan,TIANG MOHER DEPAN,2,2265,1
 SD07,sliding door,panel-sliding,tinggi,belakang,TIANG MOHER SAMPING,2,2265,1
 SD07,sliding door,kusen-extra,lebar,extra,1/2M + TUTUP,2,925,1
-SD08,sliding door,kusen,lebar,atas,M4''+ TUTUP GOT,1,5850,1
+SD08,sliding door,kusen,lebar,atas,M4'' + TUTUP GOT,1,5850,1
 SD08,sliding door,kusen,tinggi,kiri,M4'',1,2300,1
 SD08,sliding door,kusen,tinggi,tengah,M4'' + TUTUP M,2,2300,1
 SD08,sliding door,kusen,tinggi,kanan,M4'',1,2300,1
@@ -96,8 +96,8 @@ SD08,sliding door,panel-sliding,lebar,bawah,AMBANG BAWAH,2,985,1
 SD08,sliding door,panel-sliding,tinggi,depan,TIANG MOHER DEPAN,2,2265,1
 SD08,sliding door,panel-sliding,tinggi,belakang,TIANG MOHER SAMPING,2,2265,1
 SD08,sliding door,kusen-extra,lebar,extra,1/2M + TUTUP,2,1100,1
-SD09,sliding door,kusen,lebar,atas,M4''+ TUTUP GOT,1,4500,1
-SD09,sliding door,kusen,tinggi,kiri,M4''+ TUTUP GOT,1,2300,1
+SD09,sliding door,kusen,lebar,atas,M4'' + TUTUP GOT,1,4500,1
+SD09,sliding door,kusen,tinggi,kiri,M4'' + TUTUP GOT,1,2300,1
 SD09,sliding door,kusen,tinggi,tengah,M4'' + TUTUP M,2,2300,1
 SD09,sliding door,kusen,tinggi,kanan,M4'',1,2300,1
 SD09,sliding door,panel-mati,lebar,bawah,1/2M + TUTUP,1,1205,1
@@ -107,8 +107,8 @@ SD09,sliding door,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1230,1
 SD09,sliding door,panel-sliding,tinggi,depan,TIANG MOHER DEPAN,1,2265,1
 SD09,sliding door,panel-sliding,tinggi,belakang,TIANG MOHER SAMPING,1,2265,1
 SD09,sliding door,kusen-extra,lebar,extra,1/2M + TUTUP,2,1100,1
-SD10,sliding door,kusen,lebar,atas,M4''+ TUTUP GOT,1,5750,1
-SD10,sliding door,kusen,tinggi,kiri,M4''+ TUTUP GOT,1,2300,1
+SD10,sliding door,kusen,lebar,atas,M4'' + TUTUP GOT,1,5750,1
+SD10,sliding door,kusen,tinggi,kiri,M4'' + TUTUP GOT,1,2300,1
 SD10,sliding door,kusen,tinggi,tengah,M4'' + TUTUP M,3,2300,1
 SD10,sliding door,kusen,tinggi,kanan,M4'',1,2300,1
 SD10,sliding door,panel-mati,lebar,bawah,1/2M + TUTUP,1,1205,1
