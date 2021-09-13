@@ -1,0 +1,80 @@
+---
+title: "Materials Needed"
+author: "Factory - Pak Eddie"
+date: "1 September 2021, Updated `r format(Sys.Date(), '%d %B %Y')`"
+output: 
+  html_document:
+    code_folding: hide
+    toc: true
+    toc_float: true
+    toc_depth: 2
+    css: style.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+
+# load packages
+library(tidyverse)
+library(here)
+library(DT)
+library(readxl)
+```
+
+```{r}
+# import and clean
+measurement <- 
+  read_xlsx(here("data/raw_data.xlsx"), sheet = "tinggi lebar") %>% 
+  pivot_longer(
+    cols = ! c(model, tipe),
+    names_to = "cat2",
+    values_to = "measurements"
+  ) %>% 
+  separate(cat2, c("cat2", "cat3"), " ") %>% 
+  separate(cat3, c("cat3", NA), "-") %>% 
+  rename("cat1" = "tipe") %>% 
+  dplyr::filter(! is.na(measurements))
+
+
+count <- 
+  read_xlsx(here("data/raw_data.xlsx"), sheet = "nomor sisi") %>% 
+  pivot_longer(
+    cols = ! model,
+    names_to = "cat2",
+    values_to = "count"
+  ) %>% 
+  separate(cat2, c("cat2", "cat3"), " ") %>% 
+  separate(cat3, c("cat3", "cat4"), "-") %>% 
+  dplyr::filter(! is.na(count))
+
+model_unit <- read_xlsx(here("data/raw_data.xlsx"), sheet = "model unit") 
+
+material <-
+  read_xlsx(here("data/raw_data.xlsx"), sheet = "materi") %>% 
+  pivot_longer(
+    cols = ! model,
+    names_to = "cat2",
+    values_to = "material"
+  ) %>% 
+  separate(cat2, c("cat2", "cat3"), " ") %>% 
+  separate(cat3, c("cat3", "cat4"), "-") %>% 
+  dplyr::filter(! is.na(material))
+
+df <-
+  model_unit %>% 
+  left_join(measurement, by = "model") %>% 
+  left_join(count, by = c("model", "cat2", "cat3")) %>% 
+  left_join(material, by = c("model", "cat2", "cat3", "cat4")) %>% 
+  relocate(cat4, .after = cat3) %>% 
+  rename(countPerUnit = count) %>% 
+  mutate(totalCount = unit*countPerUnit,
+         cat2 = gsub("-extra", "", cat2)) %>% 
+  relocate(countPerUnit, .before = totalCount)
+
+write_csv(df, "data/df.csv", na = "")
+```
+
+
+
+
+##
