@@ -23,380 +23,243 @@ library(readxl)
 ```
 
 
-```{r data-prep}
-# import data
-filepath = "data/raw_data - Copy.xlsx"
+```{r, include=FALSE}
+source("R/data-cleaning.R", local = knitr::knit_global())
 
-tl0 <- read_xlsx(here(filepath), sheet = "tinggi lebar")  # measurements (length x width)
-ns0 <- read_xlsx(here(filepath), sheet = "nomor sisi")    # number needed per edge
-materi0 <- read_xlsx(here(filepath), sheet = "materi")    # materials
-unit0 <- read_xlsx(here(filepath), sheet = "model unit")  # units per model
+# functions
+source("R/foo.R", local = knitr::knit_global())
+source("R/optimized_material.R", local = knitr::knit_global())
+source("R/calc_steps.R", local = knitr::knit_global())
 
-# measurements CLEANING
-tl <- 
-  tl0 %>% 
-  # wide to long dataframe
-  pivot_longer(cols = -c(model, tipe),
-               names_to = "tipe2",
-               values_to = "ukuran") %>% 
-  # filter empty spaces 
-  dplyr::filter(! is.na(ukuran)) %>% 
-  # separate categories 
-  separate(tipe2, c("tipe2", "tipe3"), " ") %>% 
-  select(-tipe)
-
-tl_extra <-
-  tl %>% 
-  dplyr::filter(tipe2 == "kusen-extra") %>% 
-  separate(tipe3, c("tipe3", "tipe4"), "-")
-
-# nomor sisi CLEANING
-ns <- 
-  ns0 %>% 
-  # wide to long dataframe
-  pivot_longer(cols = -model,
-               names_to = "tipe2",
-               values_to = "perlu per unit") %>% 
-  # filter empty spaces 
-  dplyr::filter(! is.na(`perlu per unit`)) %>% 
-  # separate categories 
-  separate(tipe2, c("tipe2", "tipe3"), " ") %>% 
-  separate(tipe3, c("tipe3", "tipe4"), "-")
-
-# materi CLEANING
-materi <-
-  materi0 %>% 
-  # wide to long dataframe
-  pivot_longer(cols = -model,
-               names_to = "tipe2",
-               values_to = "materi") %>% 
-  # filter empty spaces 
-  dplyr::filter(! is.na(materi)) %>%
-  # separate categories 
-  separate(tipe2, c("tipe2", "tipe3"), " ") %>% 
-  separate(tipe3, c("tipe3", "tipe4"), "-")
-
-# unit CLEANING
-unit <-
-  unit0 %>% 
-  select(model, unit)
-
-# tipe (to add main types to df)
-tipe <- 
-  tl0 %>% 
-  group_by(model) %>% 
-  count(tipe) %>% 
-  select(-n)
-
-# join dataset
-df <-
-  materi %>% 
-  left_join(ns, by = c("model", "tipe2", "tipe3", "tipe4")) %>% 
-  left_join(tl, by = c("model", "tipe2", "tipe3")) %>% 
-  # fix extra
-  left_join(tl_extra, by = c("model", "tipe2", "tipe3", "tipe4")) %>% 
-  pivot_longer(cols = starts_with("ukuran."),
-               names_to = "temp2",
-               values_to = "ukuran") %>% 
-  dplyr::filter(! is.na(ukuran)) %>% 
-  select(- starts_with("temp")) %>% 
-  # add main type
-  left_join(tipe, by = "model") %>% 
-  relocate(tipe, .after = model) %>% 
-  # add unit
-  left_join(unit, by = "model")
-
-write_csv(df, file = "data/tidy-data.csv")
+source("R/df_summary.R", local = knitr::knit_global())
 ```
 
-```{r df-summary}
-# summary of models, materials, measurements and total in tidy format
-# materials combined
-
-df_summary <-
-  df %>% 
-  # group by model, materials and measurements, summarised by total needed
-  group_by(model, materi, ukuran) %>% 
-  summarise(total = sum(`perlu per unit`)*unit) %>% 
-  ungroup() %>% 
-  # ! for some reason, there is still duplicates - so we ran it again and it worked ¯\_(ツ)_/¯
-  group_by(model, materi, ukuran) %>% 
-  summarise(total = sum(total)) %>% 
-  ungroup()
-```
-
-```{r df-summary2}
-# summary of models, materials, measurements and total in tidy format
-# materials separated
-
-df_summary2 <-
-  df %>% 
-  # separate materials 
-  separate(materi, c("materi1", "materi2"), " [+] ", extra = "merge") %>% 
-  separate(materi2, c("materi2", "materi3"), " [+] ") %>% 
-  # convert back into one column
-  pivot_longer(cols = starts_with("materi"), 
-               names_to = "label",
-               values_to = "materi") %>% 
-  # filter redundant rows
-  dplyr::filter(! is.na(materi)) %>% 
-  # remove labels (unnecessary)
-  select(-label) %>% 
-  
-  # same as df_summary chunk
-  group_by(model, materi, ukuran) %>% 
-  summarise(total = sum(`perlu per unit`)*unit) %>% 
-  ungroup() %>% 
-  group_by(model, materi, ukuran) %>% 
-  summarise(total = sum(total)) %>% 
-  ungroup()
-```
-
-
-<!--RINGKASAN PERHITUNGAN-->
-
-```{r df-calc}
-# bar length
-ukuran_bar = 6000
-
-# calculations
-# materials combined
-
-df_calc <-
-  df_summary %>%
-  group_by(materi, ukuran) %>% 
-  summarise(total = sum(total)) %>% 
-  ungroup() %>% 
-  mutate(
-    # how many can one bar make
-    "satu bar 6m bisa" = ukuran_bar %/% ukuran,
-    # number of bars needed
-    "nomer bar perlu" = ceiling(total / `satu bar 6m bisa`),
-    # total remainder in mm 
-    "sisa total" = (ukuran_bar * `nomer bar perlu`) - (ukuran * total), # or (remainder_max + unused capacity)
-    # remainder in each bar even if the maximum capacity is used
-    "sisa (max kepakai)" = ukuran_bar - (`satu bar 6m bisa` * ukuran),
-    # unused capacity
-    "kapasitas tidak terpakai" = (`nomer bar perlu` * `satu bar 6m bisa` - total) * ukuran
-  ) %>% 
-  # rename columns
-  rename(
-    "ukuran (mm)" = "ukuran",
-    "sisa total (mm)" = "sisa total",
-    "sisa max kapasitas (mm)" = "sisa (max kepakai)",
-    "kapasitas tidak terpakai (mm)" = "kapasitas tidak terpakai"
-  ) %>% 
-  # relocate remainder columns, put total remainder as last
-  relocate(
-    c(`kapasitas tidak terpakai (mm)` ,`sisa max kapasitas (mm)`, `sisa total (mm)`),
-    .after = `nomer bar perlu`
-  )
-```
-
-
-<!--TOTAL BAR PER MATERI-->
-
-```{r materials-needed1}
-# UNPRINTED
-
-material_needed1 <-
-  df_calc %>% 
-  # remove bar length needed > 6m
-  dplyr::filter(! is.infinite(`nomer bar perlu`)) %>% 
-  # group by material and sum total
-  group_by(materi) %>% 
-  summarise(total = sum(`nomer bar perlu`)) %>% 
-  ungroup() %>% 
-  # arrange by descending total
-  arrange(desc(total))
-```
-
-```{r materials-needed2}
-# calculations
-# materials separated
-
-df_calc2 <-
-  df_summary2 %>% 
-  group_by(materi, ukuran) %>% 
-  summarise(total = sum(total)) %>% 
-  ungroup() %>% 
-  # same code as above
-  mutate(
-    "satu bar 6m bisa" = ukuran_bar %/% ukuran,
-    "nomer bar perlu" = ceiling(total / `satu bar 6m bisa`),
-    "sisa total" = (ukuran_bar * `nomer bar perlu`) - (ukuran * total),
-    "sisa (max kepakai)" = ukuran_bar - (`satu bar 6m bisa` * ukuran),
-    "kapasitas tidak terpakai" = (`nomer bar perlu` * `satu bar 6m bisa` - total) * ukuran
-  ) %>% 
-  rename(
-    "ukuran (mm)" = "ukuran",
-    "sisa total (mm)" = "sisa total",
-    "sisa max kapasitas (mm)" = "sisa (max kepakai)",
-    "kapasitas tidak terpakai (mm)" = "kapasitas tidak terpakai"
-  ) %>% 
-  relocate(
-    c(`kapasitas tidak terpakai (mm)` ,`sisa max kapasitas (mm)`, `sisa total (mm)`),
-    .after = `nomer bar perlu`
-  )
-
-# total bar needed per material
-material_needed2 <- 
-  df_calc2 %>% 
-  # remove bar length needed > 6m
-  dplyr::filter(! is.infinite(`nomer bar perlu`)) %>% 
-  # group by material and sum total
-  group_by(materi) %>% 
-  summarise(total = sum(`nomer bar perlu`)) %>% 
-  ungroup() %>% 
-  # arrange by descending total
-  arrange(desc(total))
-```
-
-<!--OVER 6m-->
-
-```{r over6}
-over6 <-
-  df_calc %>% 
-  dplyr::filter(is.infinite(`nomer bar perlu`)) %>% 
-  select(materi, `ukuran (mm)`, total)
-```
-
-```{r over6-calc}
-df_calc_over6 <-
-  over6 %>% 
-  mutate(
-    sambungan1 = ukuran_bar,
-    sambungan2 = `ukuran (mm)` - ukuran_bar
-  ) %>% 
-  select(-`ukuran (mm)`) %>% 
-  pivot_longer(cols = starts_with("sambungan"),
-               names_to = "sambungan",
-               values_to = "ukuran") %>% 
-  relocate(c(sambungan, ukuran), .after = materi) %>% 
-  mutate(
-    "satu bar 6m bisa" = ukuran_bar %/% ukuran,
-    "nomer bar perlu" = ceiling(total / `satu bar 6m bisa`),
-    "sisa total" = (ukuran_bar * `nomer bar perlu`) - (ukuran * total),
-    "sisa (max kepakai)" = ukuran_bar - (`satu bar 6m bisa` * ukuran),
-    "kapasitas tidak terpakai" = (`nomer bar perlu` * `satu bar 6m bisa` - total) * ukuran    
-  ) %>% 
-  # rename columns
-  rename(
-    "ukuran (mm)" = "ukuran",
-    "sisa total (mm)" = "sisa total",
-    "sisa max kapasitas (mm)" = "sisa (max kepakai)",
-    "kapasitas tidak terpakai (mm)" = "kapasitas tidak terpakai"
-  ) %>% 
-  # relocate remainder columns, put total remainder as last
-  relocate(
-    c(`kapasitas tidak terpakai (mm)` ,`sisa max kapasitas (mm)`, `sisa total (mm)`),
-    .after = `nomer bar perlu`
-  )
-
-material_needed_over6 <-
-  df_calc_over6 %>% 
-  group_by(materi) %>% 
-  summarise(total.over6 = sum(`nomer bar perlu`)) %>% 
-  ungroup() %>% 
-  arrange(desc(total.over6))
-```
-
-```{r over6-materials-needed}
-over6_2 <-
-  df_calc2 %>% 
-  dplyr::filter(is.infinite(`nomer bar perlu`)) %>% 
-  select(materi, `ukuran (mm)`, total)
-
-df_calc_over6_2 <-
-  over6_2 %>% 
-  mutate(
-    sambungan1 = ukuran_bar,
-    sambungan2 = `ukuran (mm)` - ukuran_bar
-  ) %>% 
-  select(-`ukuran (mm)`) %>% 
-  pivot_longer(cols = starts_with("sambungan"),
-               names_to = "sambungan",
-               values_to = "ukuran") %>% 
-  relocate(c(sambungan, ukuran), .after = materi) %>% 
-  mutate(
-    "satu bar 6m bisa" = ukuran_bar %/% ukuran,
-    "nomer bar perlu" = ceiling(total / `satu bar 6m bisa`),
-    "sisa total" = (ukuran_bar * `nomer bar perlu`) - (ukuran * total),
-    "sisa (max kepakai)" = ukuran_bar - (`satu bar 6m bisa` * ukuran),
-    "kapasitas tidak terpakai" = (`nomer bar perlu` * `satu bar 6m bisa` - total) * ukuran    
-  ) %>% 
-  # rename columns
-  rename(
-    "ukuran (mm)" = "ukuran",
-    "sisa total (mm)" = "sisa total",
-    "sisa max kapasitas (mm)" = "sisa (max kepakai)",
-    "kapasitas tidak terpakai (mm)" = "kapasitas tidak terpakai"
-  ) %>% 
-  # relocate remainder columns, put total remainder as last
-  relocate(
-    c(`kapasitas tidak terpakai (mm)` ,`sisa max kapasitas (mm)`, `sisa total (mm)`),
-    .after = `nomer bar perlu`
-  )
-
-material_needed_over6_2 <-
-  df_calc_over6_2 %>% 
-  group_by(materi) %>% 
-  summarise(total.over6 = sum(`nomer bar perlu`)) %>% 
-  ungroup() %>% 
-  arrange(desc(total.over6))
-```
-
-
-<!-- DOCUMENT BEGINS -->
-
-## Total Bar Diperlukan Per Materi
+# Total Bar Untuk Pintu
 
 ```{r}
-materials_needed_total <-
-  material_needed1 %>% 
-  left_join(material_needed_over6, by = "materi") %>% 
-  pivot_longer(cols = c(total, total.over6),
-               names_to = "temp",
-               values_to = "total") %>% 
-  select(-temp) %>% 
-  dplyr::filter(! is.na(total)) %>% 
-  group_by(materi) %>% 
-  summarise(total = sum(total)) %>% 
-  arrange(desc(total))
+p <- optimized_material(df_summary, type = "pintu")
 
-# print table
-materials_needed_total %>% 
-  DT::datatable(options = list(pageLength = 20))
-
-# save table
-write_csv(materials_needed_total, file = "data/materials_needed.csv")
+p %>% 
+  select(-steps) %>% 
+  datatable(colnames = c("Materi", "Total Bar Perlu"))
 ```
 
-## Ringkasan Perhitungan
+## Sisa Materi Pintu {.tabset}
+
+### `r p$materi[1]`
 
 ```{r}
-calc_summary_under6 <-
-  df_calc %>% 
-  # filter materials <=6m
-  dplyr::filter(`ukuran (mm)` <= 6000) 
-
-calc_summary_total <-
-  calc_summary_under6 %>% 
-  full_join(df_calc_over6, by = c("materi", "ukuran (mm)", "total", "satu bar 6m bisa", "nomer bar perlu", "kapasitas tidak terpakai (mm)", "sisa max kapasitas (mm)", "sisa total (mm)")) %>% 
-  select(-sambungan)
-
-calc_summary_total %>% 
-  DT::datatable(options = list(pageLength = 20))
-
-write_csv(calc_summary_total, file = "data/calculations.csv")
+calc_steps(x = df_summary, type = "pintu", material = p$materi[1], bin.step = p$steps[1]) %>% datatable()
 ```
 
-## Ringkasan Keperluan
+
+### `r p$materi[2]`
 
 ```{r}
-df_summary %>% 
-  DT::datatable(options = list(pageLength = 20))
+calc_steps(x = df_summary, type = "pintu", material = p$materi[2], bin.step = p$steps[2]) %>% datatable()
+```
 
-write_csv(df_summary, file = "data/summary.csv")
+
+## Keperluan Ukuran Model Pintu
+
+```{r}
+df %>% 
+  dplyr::filter(tipe == "pintu") %>% 
+  select(-tipe3, -tipe4) %>% 
+  group_by(model, tipe, tipe2, materi, ukuran, unit) %>% 
+  summarise(`perlu per unit` = sum(`perlu per unit`)) %>% 
+  ungroup() %>% 
+  mutate("total perlu" = unit * `perlu per unit`,
+         ukuran = ukuran / 10) %>% 
+  rename("ukuran (cm)" = ukuran) %>% 
+  datatable()
+```
+
+
+# Total Bar Untuk Sliding Door 
+
+```{r}
+sd <- optimized_material(df_summary, type = "sliding door")
+
+sd %>% 
+  select(-steps) %>% 
+  datatable(colnames = c("Materi", "Total Bar Perlu"))
+```
+
+## Sisa Materi Sliding Door {.tabset}
+
+### `r sd$materi[1]`
+
+```{r}
+calc_steps(x = df_summary, type = "sliding door", material = sd$materi[1], bin.step = sd$steps[1]) %>% datatable()
+```
+
+### `r sd$materi[2]`
+
+```{r}
+calc_steps(x = df_summary, type = "sliding door", material = sd$materi[2], bin.step = sd$steps[2]) %>% datatable()
+```
+
+### `r sd$materi[3]`
+
+```{r}
+calc_steps(x = df_summary, type = "sliding door", material = sd$materi[3], bin.step = sd$steps[3]) %>% datatable()
+```
+
+### `r sd$materi[4]`
+
+```{r}
+calc_steps(x = df_summary, type = "sliding door", material = sd$materi[4], bin.step = sd$steps[4]) %>% datatable()
+```
+
+### `r sd$materi[5]`
+
+```{r}
+calc_steps(x = df_summary, type = "sliding door", material = sd$materi[5], bin.step = sd$steps[5]) %>% datatable()
+```
+
+### `r sd$materi[6]`
+
+```{r}
+calc_steps(x = df_summary, type = "sliding door", material = sd$materi[6], bin.step = sd$steps[6]) %>% datatable()
+```
+
+### `r sd$materi[7]`
+
+```{r}
+calc_steps(x = df_summary, type = "sliding door", material = sd$materi[7], bin.step = sd$steps[7]) %>% datatable()
+```
+
+### `r sd$materi[8]`
+
+```{r}
+calc_steps(x = df_summary, type = "sliding door", material = sd$materi[8], bin.step = sd$steps[8]) %>% datatable()
+```
+
+### `r sd$materi[9]`
+
+```{r}
+calc_steps(x = df_summary, type = "sliding door", material = sd$materi[9], bin.step = sd$steps[9]) %>% datatable()
+```
+
+
+## Keperluan Ukuran Model Sliding Door
+
+```{r}
+df %>% 
+  dplyr::filter(tipe == "sliding door") %>% 
+  select(-tipe3, -tipe4) %>% 
+  group_by(model, tipe, tipe2, materi, ukuran, unit) %>% 
+  summarise(`perlu per unit` = sum(`perlu per unit`)) %>% 
+  ungroup() %>% 
+  mutate("total perlu" = unit * `perlu per unit`,
+         ukuran = ukuran / 10) %>% 
+  rename("ukuran (cm)" = ukuran) %>% 
+  datatable()
+```
+
+# Total Bar Untuk Jendela 
+
+```{r}
+j <- optimized_material(df_summary, type = "jendela")
+
+j %>%   
+  select(-steps) %>% 
+  datatable(colnames = c("Materi", "Total Bar Perlu"))
+```
+
+## Sisa Materi Jendela {.tabset}
+
+### `r j$materi[1]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[1], bin.step = j$steps[1]) %>% datatable()
+```
+
+### `r j$materi[2]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[2], bin.step = j$steps[2]) %>% datatable()
+```
+
+### `r j$materi[3]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[3], bin.step = j$steps[3]) %>% datatable()
+```
+
+### `r j$materi[4]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[4], bin.step = j$steps[4]) %>% datatable()
+```
+
+### `r j$materi[5]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[5], bin.step = j$steps[5]) %>% datatable()
+```
+
+### `r j$materi[6]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[6], bin.step = j$steps[6]) %>% datatable()
+```
+
+### `r j$materi[7]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[7], bin.step = j$steps[7]) %>% datatable()
+```
+
+### `r j$materi[8]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[8], bin.step = j$steps[8]) %>% datatable()
+```
+
+### `r j$materi[9]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[9], bin.step = j$steps[9]) %>% datatable()
+```
+
+### `r j$materi[10]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[10], bin.step = j$steps[10]) %>% datatable()
+```
+
+### `r j$materi[11]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[11], bin.step = j$steps[11]) %>% datatable()
+```
+
+### `r j$materi[12]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[12], bin.step = j$steps[12]) %>% datatable()
+```
+
+### `r j$materi[13]`
+
+```{r}
+calc_steps(x = df_summary, type = "jendela", material = j$materi[13], bin.step = j$steps[13]) %>% datatable()
+```
+
+## Keperluan Ukuran Model Jendela
+
+```{r}
+df %>% 
+  dplyr::filter(tipe == "jendela") %>% 
+  select(-tipe3, -tipe4) %>% 
+  group_by(model, tipe, tipe2, materi, ukuran, unit) %>% 
+  summarise(`perlu per unit` = sum(`perlu per unit`)) %>% 
+  ungroup() %>% 
+  mutate("total perlu" = unit * `perlu per unit`,
+         ukuran = ukuran / 10) %>%
+  rename("ukuran (cm)" = ukuran) %>% 
+  datatable()
 ```
 

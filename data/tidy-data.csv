@@ -118,10 +118,10 @@ SD10,sliding door,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1230,1
 SD10,sliding door,panel-sliding,tinggi,depan,TIANG MOHER DEPAN,1,2265,1
 SD10,sliding door,panel-sliding,tinggi,belakang,TIANG MOHER SAMPING,1,2265,1
 SD10,sliding door,kusen-extra,lebar,extra,1/2M + TUTUP,3,1167,1
-W01,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,2725,5
-W01,jendela,kusen,lebar,bawah,OB4'' + BELL BAWAH,1,2725,5
-W01,jendela,kusen,tinggi,kiri,OB4'' + TATAPAN,1,1500,5
-W01,jendela,kusen,tinggi,kanan,OB4'' + TATAPAN,1,1500,5
+W01,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,2725,5
+W01,jendela,kusen,lebar,bawah,OB3'' + BELL BAWAH,1,2725,5
+W01,jendela,kusen,tinggi,kiri,OB3'' + TATAPAN,1,1500,5
+W01,jendela,kusen,tinggi,kanan,OB3'' + TATAPAN,1,1500,5
 W01,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,1332,5
 W01,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,1332,5
 W01,jendela,panel-mati,tinggi,depan,T KAIT,1,1430,5
@@ -129,10 +129,11 @@ W01,jendela,panel-mati,tinggi,belakang,T SLIDE,1,1430,5
 W01,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,1392,5
 W01,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1392,5
 W01,jendela,panel-sliding,tinggi,depan,T SLIDE,1,1430,5
-W02,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,2000,1
-W02,jendela,kusen,lebar,bawah,OB4'' + BELL BAWAH,1,2000,1
-W02,jendela,kusen,tinggi,kiri,OB4'' + TATAPAN,1,1500,1
-W02,jendela,kusen,tinggi,kanan,OB4'' + TATAPAN,1,1500,1
+W01,jendela,panel-sliding,tinggi,belakang,T KAIT,1,1430,5
+W02,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,2000,1
+W02,jendela,kusen,lebar,bawah,OB3'' + BELL BAWAH,1,2000,1
+W02,jendela,kusen,tinggi,kiri,OB3'' + TATAPAN,1,1500,1
+W02,jendela,kusen,tinggi,kanan,OB3'' + TATAPAN,1,1500,1
 W02,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,970,1
 W02,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,970,1
 W02,jendela,panel-mati,tinggi,depan,T KAIT,1,1430,1
@@ -140,10 +141,11 @@ W02,jendela,panel-mati,tinggi,belakang,T SLIDE,1,1430,1
 W02,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,1030,1
 W02,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1030,1
 W02,jendela,panel-sliding,tinggi,depan,T SLIDE,1,1430,1
-W03,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,2075,1
-W03,jendela,kusen,lebar,bawah,OB4'' + BELL BAWAH,1,2075,1
-W03,jendela,kusen,tinggi,kiri,OB4'' + TATAPAN,1,1500,1
-W03,jendela,kusen,tinggi,kanan,OB4'' + TATAPAN,1,1500,1
+W02,jendela,panel-sliding,tinggi,belakang,T KAIT,1,1430,1
+W03,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,2075,1
+W03,jendela,kusen,lebar,bawah,OB3'' + BELL BAWAH,1,2075,1
+W03,jendela,kusen,tinggi,kiri,OB3'' + TATAPAN,1,1500,1
+W03,jendela,kusen,tinggi,kanan,OB3'' + TATAPAN,1,1500,1
 W03,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,1007,1
 W03,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,1007,1
 W03,jendela,panel-mati,tinggi,depan,T KAIT,1,1430,1
@@ -151,10 +153,11 @@ W03,jendela,panel-mati,tinggi,belakang,T SLIDE,1,1430,1
 W03,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,1067,1
 W03,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1067,1
 W03,jendela,panel-sliding,tinggi,depan,T SLIDE,1,1430,1
-W04,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,1400,5
-W04,jendela,kusen,lebar,bawah,OB4'' + BELL BAWAH,1,1400,5
-W04,jendela,kusen,tinggi,kiri,OB4'' + TATAPAN,1,1500,5
-W04,jendela,kusen,tinggi,kanan,OB4'' + TATAPAN,1,1500,5
+W03,jendela,panel-sliding,tinggi,belakang,T KAIT,1,1430,1
+W04,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,1400,5
+W04,jendela,kusen,lebar,bawah,OB3'' + BELL BAWAH,1,1400,5
+W04,jendela,kusen,tinggi,kiri,OB3'' + TATAPAN,1,1500,5
+W04,jendela,kusen,tinggi,kanan,OB3'' + TATAPAN,1,1500,5
 W04,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,670,5
 W04,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,670,5
 W04,jendela,panel-mati,tinggi,depan,T KAIT,1,1430,5
@@ -162,10 +165,11 @@ W04,jendela,panel-mati,tinggi,belakang,T SLIDE,1,1430,5
 W04,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,730,5
 W04,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,730,5
 W04,jendela,panel-sliding,tinggi,depan,T SLIDE,1,1430,5
-W05,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,1725,3
-W05,jendela,kusen,lebar,bawah,OB4'' + BELL BAWAH,1,1725,3
-W05,jendela,kusen,tinggi,kiri,OB4'' + TATAPAN,1,600,3
-W05,jendela,kusen,tinggi,kanan,OB4'' + TATAPAN,1,600,3
+W04,jendela,panel-sliding,tinggi,belakang,T KAIT,1,1430,5
+W05,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,1725,3
+W05,jendela,kusen,lebar,bawah,OB3'' + BELL BAWAH,1,1725,3
+W05,jendela,kusen,tinggi,kiri,OB3'' + TATAPAN,1,600,3
+W05,jendela,kusen,tinggi,kanan,OB3'' + TATAPAN,1,600,3
 W05,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,832,3
 W05,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,832,3
 W05,jendela,panel-mati,tinggi,depan,T KAIT,1,530,3
@@ -173,10 +177,11 @@ W05,jendela,panel-mati,tinggi,belakang,T SLIDE,1,530,3
 W05,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,892,3
 W05,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,892,3
 W05,jendela,panel-sliding,tinggi,depan,T SLIDE,1,530,3
-W06,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,1450,1
-W06,jendela,kusen,lebar,bawah,OB4'' + BELL BAWAH,1,1450,1
-W06,jendela,kusen,tinggi,kiri,OB4'' + TATAPAN,1,600,1
-W06,jendela,kusen,tinggi,kanan,OB4'' + TATAPAN,1,600,1
+W05,jendela,panel-sliding,tinggi,belakang,T KAIT,1,530,3
+W06,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,1450,1
+W06,jendela,kusen,lebar,bawah,OB3'' + BELL BAWAH,1,1450,1
+W06,jendela,kusen,tinggi,kiri,OB3'' + TATAPAN,1,600,1
+W06,jendela,kusen,tinggi,kanan,OB3'' + TATAPAN,1,600,1
 W06,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,695,1
 W06,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,695,1
 W06,jendela,panel-mati,tinggi,depan,T KAIT,1,530,1
@@ -184,10 +189,11 @@ W06,jendela,panel-mati,tinggi,belakang,T SLIDE,1,530,1
 W06,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,755,1
 W06,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,755,1
 W06,jendela,panel-sliding,tinggi,depan,T SLIDE,1,530,1
-W07,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,2800,1
-W07,jendela,kusen,lebar,bawah,OB4'' + BELL BAWAH,1,2800,1
-W07,jendela,kusen,tinggi,kiri,OB4'' + TATAPAN,1,600,1
-W07,jendela,kusen,tinggi,kanan,OB4'' + TATAPAN,1,600,1
+W06,jendela,panel-sliding,tinggi,belakang,T KAIT,1,530,1
+W07,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,2800,1
+W07,jendela,kusen,lebar,bawah,OB3'' + BELL BAWAH,1,2800,1
+W07,jendela,kusen,tinggi,kiri,OB3'' + TATAPAN,1,600,1
+W07,jendela,kusen,tinggi,kanan,OB3'' + TATAPAN,1,600,1
 W07,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,1370,1
 W07,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,1370,1
 W07,jendela,panel-mati,tinggi,depan,T KAIT,1,530,1
@@ -195,10 +201,11 @@ W07,jendela,panel-mati,tinggi,belakang,T SLIDE,1,530,1
 W07,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,1430,1
 W07,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1430,1
 W07,jendela,panel-sliding,tinggi,depan,T SLIDE,1,530,1
-W08,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,3225,1
-W08,jendela,kusen,lebar,bawah,OB4'' + BELL BAWAH,1,3225,1
-W08,jendela,kusen,tinggi,kiri,OB4'' + TATAPAN,1,600,1
-W08,jendela,kusen,tinggi,kanan,OB4'' + TATAPAN,1,600,1
+W07,jendela,panel-sliding,tinggi,belakang,T KAIT,1,530,1
+W08,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,3225,1
+W08,jendela,kusen,lebar,bawah,OB3'' + BELL BAWAH,1,3225,1
+W08,jendela,kusen,tinggi,kiri,OB3'' + TATAPAN,1,600,1
+W08,jendela,kusen,tinggi,kanan,OB3'' + TATAPAN,1,600,1
 W08,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,1582,1
 W08,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,1582,1
 W08,jendela,panel-mati,tinggi,depan,T KAIT,1,530,1
@@ -206,19 +213,20 @@ W08,jendela,panel-mati,tinggi,belakang,T SLIDE,1,530,1
 W08,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,1642,1
 W08,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1642,1
 W08,jendela,panel-sliding,tinggi,depan,T SLIDE,1,530,1
-W09,jendela,kusen,lebar,atas,M4'',1,1225,1
+W08,jendela,panel-sliding,tinggi,belakang,T KAIT,1,530,1
+W09,jendela,kusen,lebar,atas,M3'',1,1225,1
 W09,jendela,kusen,lebar,bawah,1/2M + TUTUP,1,1225,1
-W09,jendela,kusen,tinggi,kiri,M4'',1,1500,1
-W09,jendela,kusen,tinggi,kanan,M4'',1,1500,1
-W10,jendela,kusen,lebar,atas,M4'',1,1125,1
+W09,jendela,kusen,tinggi,kiri,M3'',1,1500,1
+W09,jendela,kusen,tinggi,kanan,M3'',1,1500,1
+W10,jendela,kusen,lebar,atas,M3'',1,1125,1
 W10,jendela,kusen,lebar,bawah,1/2M + TUTUP,1,1125,1
-W10,jendela,kusen,tinggi,kiri,M4'',1,1500,1
-W10,jendela,kusen,tinggi,kanan,M4'',1,1500,1
-W11,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,4100,1
-W11,jendela,kusen,lebar,bawah,OB4'' + BELL BAWAH,1,4100,1
-W11,jendela,kusen,tinggi,kiri,OB4'' + TATAPAN,1,1500,1
-W11,jendela,kusen,tinggi,tengah,OB4'' + TUTUP P,1,1500,1
-W11,jendela,kusen,tinggi,kanan,OB4'' + TATAPAN,1,1500,1
+W10,jendela,kusen,tinggi,kiri,M3'',1,1500,1
+W10,jendela,kusen,tinggi,kanan,M3'',1,1500,1
+W11,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,4100,1
+W11,jendela,kusen,lebar,bawah,OB3'' + BELL BAWAH,1,4100,1
+W11,jendela,kusen,tinggi,kiri,OB3'' + TATAPAN,1,1500,1
+W11,jendela,kusen,tinggi,tengah,OB3'' + TUTUP P,1,1500,1
+W11,jendela,kusen,tinggi,kanan,OB3'' + TATAPAN,1,1500,1
 W11,jendela,panel-mati,lebar,atas,AMBANG ATAS,2,1007,1
 W11,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,2,1007,1
 W11,jendela,panel-mati,tinggi,depan,T KAIT,2,1430,1
@@ -226,11 +234,12 @@ W11,jendela,panel-mati,tinggi,belakang,T SLIDE,2,1430,1
 W11,jendela,panel-sliding,lebar,atas,AMBANG ATAS,2,1067,1
 W11,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,2,1067,1
 W11,jendela,panel-sliding,tinggi,depan,T SLIDE,2,1430,1
-W12,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,3875,1
-W12,jendela,kusen,lebar,bawah,OB4'' + BELL BAWAH,1,3875,1
-W12,jendela,kusen,tinggi,kiri,OB4'' + TATAPAN,1,1500,1
-W12,jendela,kusen,tinggi,tengah,OB4'' + TUTUP P,1,1500,1
-W12,jendela,kusen,tinggi,kanan,OB4'' + TATAPAN,1,1500,1
+W11,jendela,panel-sliding,tinggi,belakang,T KAIT,2,1430,1
+W12,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,3875,1
+W12,jendela,kusen,lebar,bawah,OB3'' + BELL BAWAH,1,3875,1
+W12,jendela,kusen,tinggi,kiri,OB3'' + TATAPAN,1,1500,1
+W12,jendela,kusen,tinggi,tengah,OB3'' + TUTUP P,1,1500,1
+W12,jendela,kusen,tinggi,kanan,OB3'' + TATAPAN,1,1500,1
 W12,jendela,panel-mati,lebar,atas,AMBANG ATAS,2,951,1
 W12,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,2,951,1
 W12,jendela,panel-mati,tinggi,depan,T KAIT,2,1430,1
@@ -238,10 +247,11 @@ W12,jendela,panel-mati,tinggi,belakang,T SLIDE,2,1430,1
 W12,jendela,panel-sliding,lebar,atas,AMBANG ATAS,2,1011,1
 W12,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,2,1011,1
 W12,jendela,panel-sliding,tinggi,depan,T SLIDE,2,1430,1
-W13,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,2725,1
-W13,jendela,kusen,lebar,tengah,OB4'' + TUTUP M + BELL BAWAH,1,2725,1
-W13,jendela,kusen,tinggi,kiri,M4'' + TATAPAN,1,2300,1
-W13,jendela,kusen,tinggi,kanan,M4'' + TATAPAN,1,2300,1
+W12,jendela,panel-sliding,tinggi,belakang,T KAIT,2,1430,1
+W13,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,2725,1
+W13,jendela,kusen,lebar,tengah,OB3'' + TUTUP M + BELL BAWAH,1,2725,1
+W13,jendela,kusen,tinggi,kiri,M3'' + TATAPAN,1,2300,1
+W13,jendela,kusen,tinggi,kanan,M3'' + TATAPAN,1,2300,1
 W13,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,1332,1
 W13,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,1332,1
 W13,jendela,panel-mati,tinggi,depan,T KAIT,1,1430,1
@@ -249,12 +259,13 @@ W13,jendela,panel-mati,tinggi,belakang,T SLIDE,1,1430,1
 W13,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,1392,1
 W13,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1392,1
 W13,jendela,panel-sliding,tinggi,depan,T SLIDE,1,1430,1
-W13,jendela,kusen-extra,tinggi,extra,M4'' + TUTUP M,1,850,1
+W13,jendela,panel-sliding,tinggi,belakang,T KAIT,1,1430,1
+W13,jendela,kusen-extra,tinggi,extra,M3'' + TUTUP M,1,850,1
 W13,jendela,kusen-extra,lebar,extra,1/2M + TUTUP,2,1388,1
-W14,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,3225,1
-W14,jendela,kusen,lebar,tengah,OB4'' + TUTUP M + BELL BAWAH,1,3225,1
-W14,jendela,kusen,tinggi,kiri,M4'' + TATAPAN,1,2300,1
-W14,jendela,kusen,tinggi,kanan,M4'' + TATAPAN,1,2300,1
+W14,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,3225,1
+W14,jendela,kusen,lebar,tengah,OB3'' + TUTUP M + BELL BAWAH,1,3225,1
+W14,jendela,kusen,tinggi,kiri,M3'' + TATAPAN,1,2300,1
+W14,jendela,kusen,tinggi,kanan,M3'' + TATAPAN,1,2300,1
 W14,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,1582,1
 W14,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,1582,1
 W14,jendela,panel-mati,tinggi,depan,T KAIT,1,1430,1
@@ -262,12 +273,13 @@ W14,jendela,panel-mati,tinggi,belakang,T SLIDE,1,1430,1
 W14,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,1642,1
 W14,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1642,1
 W14,jendela,panel-sliding,tinggi,depan,T SLIDE,1,1430,1
-W14,jendela,kusen-extra,tinggi,extra,M4'' + TUTUP M,1,850,1
+W14,jendela,panel-sliding,tinggi,belakang,T KAIT,1,1430,1
+W14,jendela,kusen-extra,tinggi,extra,M3'' + TUTUP M,1,850,1
 W14,jendela,kusen-extra,lebar,extra,1/2M + TUTUP,2,1638,1
-W15,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,2225,1
-W15,jendela,kusen,lebar,tengah,OB4'' + TUTUP M + BELL BAWAH,1,2225,1
-W15,jendela,kusen,tinggi,kiri,M4'' + TATAPAN,1,2300,1
-W15,jendela,kusen,tinggi,kanan,M4'' + TATAPAN,1,2300,1
+W15,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,2225,1
+W15,jendela,kusen,lebar,tengah,OB3'' + TUTUP M + BELL BAWAH,1,2225,1
+W15,jendela,kusen,tinggi,kiri,M3'' + TATAPAN,1,2300,1
+W15,jendela,kusen,tinggi,kanan,M3'' + TATAPAN,1,2300,1
 W15,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,1082,1
 W15,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,1082,1
 W15,jendela,panel-mati,tinggi,depan,T KAIT,1,1430,1
@@ -275,12 +287,13 @@ W15,jendela,panel-mati,tinggi,belakang,T SLIDE,1,1430,1
 W15,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,1142,1
 W15,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1142,1
 W15,jendela,panel-sliding,tinggi,depan,T SLIDE,1,1430,1
-W15,jendela,kusen-extra,tinggi,extra,M4'' + TUTUP M,1,850,1
+W15,jendela,panel-sliding,tinggi,belakang,T KAIT,1,1430,1
+W15,jendela,kusen-extra,tinggi,extra,M3'' + TUTUP M,1,850,1
 W15,jendela,kusen-extra,lebar,extra,1/2M + TUTUP,2,1138,1
-W16,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,2475,2
-W16,jendela,kusen,lebar,tengah,OB4'' + TUTUP M + BELL BAWAH,1,2475,2
-W16,jendela,kusen,tinggi,kiri,M4'' + TATAPAN,1,2300,2
-W16,jendela,kusen,tinggi,kanan,M4'' + TATAPAN,1,2300,2
+W16,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,2475,2
+W16,jendela,kusen,lebar,tengah,OB3'' + TUTUP M + BELL BAWAH,1,2475,2
+W16,jendela,kusen,tinggi,kiri,M3'' + TATAPAN,1,2300,2
+W16,jendela,kusen,tinggi,kanan,M3'' + TATAPAN,1,2300,2
 W16,jendela,panel-mati,lebar,atas,AMBANG ATAS,1,1207,2
 W16,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,1,1207,2
 W16,jendela,panel-mati,tinggi,depan,T KAIT,1,1430,2
@@ -288,13 +301,14 @@ W16,jendela,panel-mati,tinggi,belakang,T SLIDE,1,1430,2
 W16,jendela,panel-sliding,lebar,atas,AMBANG ATAS,1,1267,2
 W16,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,1,1267,2
 W16,jendela,panel-sliding,tinggi,depan,T SLIDE,1,1430,2
-W16,jendela,kusen-extra,tinggi,extra,M4'' + TUTUP M,1,850,2
+W16,jendela,panel-sliding,tinggi,belakang,T KAIT,1,1430,2
+W16,jendela,kusen-extra,tinggi,extra,M3'' + TUTUP M,1,850,2
 W16,jendela,kusen-extra,lebar,extra,1/2M + TUTUP,2,1263,2
-W17,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,4100,2
-W17,jendela,kusen,lebar,tengah,OB4'' + TUTUP M + BELL BAWAH,1,4100,2
-W17,jendela,kusen,tinggi,kiri,M4'' + TATAPAN,1,2300,2
-W17,jendela,kusen,tinggi,tengah,M4'' + TUTUP M,1,2300,2
-W17,jendela,kusen,tinggi,kanan,M4'' + TATAPAN,1,2300,2
+W17,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,4100,2
+W17,jendela,kusen,lebar,tengah,OB3'' + TUTUP M + BELL BAWAH,1,4100,2
+W17,jendela,kusen,tinggi,kiri,M3'' + TATAPAN,1,2300,2
+W17,jendela,kusen,tinggi,tengah,M3'' + TUTUP M,1,2300,2
+W17,jendela,kusen,tinggi,kanan,M3'' + TATAPAN,1,2300,2
 W17,jendela,panel-mati,lebar,atas,AMBANG ATAS,2,1063,2
 W17,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,2,1063,2
 W17,jendela,panel-mati,tinggi,depan,T KAIT,2,1430,2
@@ -302,13 +316,14 @@ W17,jendela,panel-mati,tinggi,belakang,T SLIDE,2,1430,2
 W17,jendela,panel-sliding,lebar,atas,AMBANG ATAS,2,1067,2
 W17,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,2,1067,2
 W17,jendela,panel-sliding,tinggi,depan,T SLIDE,2,1430,2
-W17,jendela,kusen-extra,tinggi,extra,M4'' + TUTUP M,2,850,2
+W17,jendela,panel-sliding,tinggi,belakang,T KAIT,2,1430,2
+W17,jendela,kusen-extra,tinggi,extra,M3'' + TUTUP M,2,850,2
 W17,jendela,kusen-extra,lebar,extra,1/2M + TUTUP,4,1063,2
-W18,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,5600,1
-W18,jendela,kusen,lebar,tengah,OB4'' + TUTUP M + BELL BAWAH,1,5600,1
-W18,jendela,kusen,tinggi,kiri,M4'' + TATAPAN,1,2300,1
-W18,jendela,kusen,tinggi,tengah,M4'' + TUTUP M,2,2300,1
-W18,jendela,kusen,tinggi,kanan,M4'' + TATAPAN,1,2300,1
+W18,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,1,5600,1
+W18,jendela,kusen,lebar,tengah,OB3'' + TUTUP M + BELL BAWAH,1,5600,1
+W18,jendela,kusen,tinggi,kiri,M3'' + TATAPAN,1,2300,1
+W18,jendela,kusen,tinggi,tengah,M3'' + TUTUP M,2,2300,1
+W18,jendela,kusen,tinggi,kanan,M3'' + TATAPAN,1,2300,1
 W18,jendela,panel-mati,lebar,atas,AMBANG ATAS,3,975,1
 W18,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,3,975,1
 W18,jendela,panel-mati,tinggi,depan,T KAIT,3,1430,1
@@ -316,13 +331,14 @@ W18,jendela,panel-mati,tinggi,belakang,T SLIDE,3,1430,1
 W18,jendela,panel-sliding,lebar,atas,AMBANG ATAS,3,980,1
 W18,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,3,980,1
 W18,jendela,panel-sliding,tinggi,depan,T SLIDE,3,1430,1
-W18,jendela,kusen-extra,tinggi,extra,M4'' + TUTUP M,3,850,1
+W18,jendela,panel-sliding,tinggi,belakang,T KAIT,3,1430,1
+W18,jendela,kusen-extra,tinggi,extra,M3'' + TUTUP M,3,850,1
 W18,jendela,kusen-extra,lebar,extra,1/2M + TUTUP,6,975,1
-W19,jendela,kusen,lebar,atas,OB4'' + BELL ATAS,1,6175,1
-W19,jendela,kusen,lebar,tengah,OB4'' + TUTUP M + BELL BAWAH,1,6175,1
-W19,jendela,kusen,tinggi,kiri,M4'' + TATAPAN,1,2300,1
-W19,jendela,kusen,tinggi,tengah,M4'' + TUTUP M,2,2300,1
-W19,jendela,kusen,tinggi,kanan,M4'' + TATAPAN,1,2300,1
+W19,jendela,kusen,lebar,atas,OB3'' + BELL ATAS,3,2092,1
+W19,jendela,kusen,lebar,tengah,OB3'' + TUTUP M + BELL BAWAH,3,2092,1
+W19,jendela,kusen,tinggi,kiri,M3'' + TATAPAN,1,2300,1
+W19,jendela,kusen,tinggi,tengah,M3'' + TUTUP M,2,2300,1
+W19,jendela,kusen,tinggi,kanan,M3'' + TATAPAN,1,2300,1
 W19,jendela,panel-mati,lebar,atas,AMBANG ATAS,3,1071,1
 W19,jendela,panel-mati,lebar,bawah,AMBANG BAWAH,3,1071,1
 W19,jendela,panel-mati,tinggi,depan,T KAIT,3,1430,1
@@ -330,5 +346,6 @@ W19,jendela,panel-mati,tinggi,belakang,T SLIDE,3,1430,1
 W19,jendela,panel-sliding,lebar,atas,AMBANG ATAS,3,1085,1
 W19,jendela,panel-sliding,lebar,bawah,AMBANG BAWAH,3,1085,1
 W19,jendela,panel-sliding,tinggi,depan,T SLIDE,3,1430,1
-W19,jendela,kusen-extra,tinggi,extra,M4'' + TUTUP M,3,850,1
+W19,jendela,panel-sliding,tinggi,belakang,T KAIT,3,1430,1
+W19,jendela,kusen-extra,tinggi,extra,M3'' + TUTUP M,3,850,1
 W19,jendela,kusen-extra,lebar,extra,1/2M + TUTUP,6,1071,1
