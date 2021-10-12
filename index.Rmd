@@ -8,7 +8,7 @@ output:
     toc_float: true
     toc_depth: 2
     css: style.css
-    code_folding: show
+    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
@@ -19,14 +19,101 @@ knitr::opts_chunk$set(echo = TRUE,
 # load packages
 library(tidyverse)
 library(here)
-library(DT)
-library(readxl)
+library(reactable)
+
+df <- read_csv(here::here("data/tidy-data.csv")) 
+source(here("countalum/countalum.R"), local = knitr::knit_global())
 ```
+
+## Click [here](https://dvannanda.shinyapps.io/countalum/) for the ShinyApp.
+
+
+## Pintu
 
 ```{r}
-df <- read_csv(here::here("data/tidy-data.csv")) 
+df1 <- df %>% dplyr::filter(tipe == "pintu")
 
-df %>% 
-  datatable()
+materi <- df1$materi %>% unique() %>% sort()
+barNeeded <- c()
+
+for (i in materi) {
+  x <- 
+    df %>% 
+    dplyr::filter(materi == i) %>% 
+    mutate(total = `perlu per unit` * unit)
+  
+  need <- rep(x$ukuran, times = x$total) %>% sort(decreasing = TRUE)
+  
+  y <- countalum(need)
+  
+  index = length(barNeeded) + 1
+  barNeeded[index] <- nrow(y)
+}
+
+tibble(materi, barNeeded) %>% 
+  reactable(pagination = FALSE)
 ```
+
+## Sliding Door
+
+```{r}
+df2 <- df %>% dplyr::filter(tipe == "sliding door")
+
+materi <- df2$materi %>% unique() %>% sort()
+barNeeded <- c()
+
+for (i in materi) {
+  x <- 
+    df %>% 
+    dplyr::filter(materi == i) %>% 
+    mutate(total = `perlu per unit` * unit)
+  
+  need <- rep(x$ukuran, times = x$total) %>% sort(decreasing = TRUE)
+  
+  y <- countalum(need)
+  
+  index = length(barNeeded) + 1
+  barNeeded[index] <- nrow(y)
+}
+
+tibble(materi, barNeeded) %>% 
+  reactable(pagination = FALSE)
+```
+
+## Jendela
+
+```{r}
+df3 <- df %>% dplyr::filter(tipe == "jendela")
+
+materi <- df3$materi %>% unique() %>% sort()
+barNeeded <- c()
+
+for (i in materi) {
+  x <- 
+    df %>% 
+    dplyr::filter(materi == i) %>% 
+    mutate(total = `perlu per unit` * unit)
+  
+  need <- rep(x$ukuran, times = x$total) %>% sort(decreasing = TRUE)
+  
+  y <- countalum(need)
+  
+  index = length(barNeeded) + 1
+  barNeeded[index] <- nrow(y)
+}
+
+tibble(materi, barNeeded) %>% 
+  reactable(pagination = FALSE)
+```
+
+
+
+## Raw Data
+
+```{r}
+df %>% 
+  reactable(pagination = FALSE)
+```
+
+
 

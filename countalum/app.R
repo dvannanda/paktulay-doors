@@ -7,17 +7,16 @@
 library(shiny)
 library(tidyverse)
 library(reactable)
-
 library(shinyWidgets)
 
 # import data
-df <- read_csv(here::here("data/tidy-data.csv"))
+df <- read_csv("tidy-data.csv")
 
 type <- df$tipe %>% unique()
 model <- df$model %>% unique()
 material <- df$materi %>% unique()
 
-source(here::here("R/countalum.R"))
+source("countalum.R")
 
 # UI -------------------------------------------------------------------------------------------------------------------
 ui <- fluidPage(
@@ -63,15 +62,13 @@ ui <- fluidPage(
                         multiple = FALSE
                     ),
                     
+                    h3("Ringkasan Tipe dan Model"),
                     tags$br(),
+                    reactableOutput("output4"),
                     tags$br(),
-                    tags$br(),
-                    tags$br(),
-                    tags$br(),
-                    
                     downloadButton(
-                        outputId = "download",
-                        label = "Download CSV"
+                        outputId = "download4",
+                        label = "Download the table as CSV"
                     )
                     
                 ), # sidebarPanel
@@ -81,14 +78,36 @@ ui <- fluidPage(
                              tags$br(),
                              h5(textOutput("text1")),
                              tags$br(),
-                             reactableOutput("output1")),
-                    tabPanel("Rincian",
-                             reactableOutput("output2"))
+                             reactableOutput("output1"),
+                             tags$br(),
+                             tags$br(),
+                             downloadButton(
+                                 outputId = "download1",
+                                 label = "Download the table as CSV"
+                             )),
+                    tabPanel("Rincian Materi",
+                             reactableOutput("output2"),
+                             tags$br(),
+                             tags$br(),
+                             downloadButton(
+                                 outputId = "download2",
+                                 label = "Download the table as CSV"
+                             )),
+                    tabPanel("Rincian Model",
+                             reactableOutput("output3"),
+                             tags$br(),
+                             tags$br(),
+                             downloadButton(
+                                 outputId = "download3",
+                                 label = "Download the table as CSV"
+                             ))
                 )) # tabsetPanel & mainPanel
             ) # sidebarLayout
         ), # tabPanel$home
         tabPanel(
-            "About"
+            "About",
+            
+            source("about.R")
         ) # tabPanel$about
     ) # navbarPage
 ) # fluidPage
@@ -138,7 +157,11 @@ server <- function(input, output, session) {
     reacNeed <- reactive({
         rep(reacData()$ukuran, times = reacData()$total) %>% 
             sort(decreasing = TRUE) %>% 
-            countalum()
+            countalum() %>% 
+            rename(
+                "potongan (mm)" = "bar_cuts",
+                "sisa (mm)" = "remainder"
+            )
     })
     
     output$output1 <- renderReactable({
@@ -147,13 +170,73 @@ server <- function(input, output, session) {
     })
     
     output$text1 <- renderText({
-        paste("No of bars needed for ", input$Id003, " = ", nrow(reacNeed()))
+        paste("No bar perlu untuk ", input$Id003, " = ", nrow(reacNeed()))
     })
     
     output$output2 <- renderReactable({
         reacDataModel() %>% 
-            reactable()
+            dplyr::filter(materi == input$Id003) %>% 
+            reactable(pagination = FALSE)
     }) 
+    
+    output$output3 <- renderReactable({
+        reacDataModel() %>% 
+            reactable(pagination = FALSE)
+    }) 
+    
+    output$download1 <- downloadHandler(
+        filename = function(){paste0(input$Id003, ".csv")},
+        content = function(fname) {
+            write.csv(reacNeed(), fname)
+        }
+    )
+    
+    output$download2 <- downloadHandler(
+        filename = function(){paste0(input$Id003, "- RINCIAN MATERI", ".csv")},
+        content = function(fname) {
+            write.csv(reacNeed(), fname)
+        }
+    )
+    
+    output$download3 <- downloadHandler(
+        filename = function(){paste0(input$Id002, ".csv")},
+        content = function(fname) {
+            write.csv(reacNeed(), fname)
+        }
+    )
+    
+    reacOut4 <- reactive({
+        materi <- reacDataModel()$materi %>% unique() %>% sort()
+        barNeeded <- c()
+        
+        for (i in materi) {
+            x <- 
+                reacDataModel() %>% 
+                dplyr::filter(materi == i) %>% 
+                mutate(total = `perlu per unit` * unit)
+            
+            need <- rep(x$ukuran, times = x$total) %>% sort(decreasing = TRUE)
+            
+            y <- countalum(need)
+            
+            index = length(barNeeded) + 1
+            barNeeded[index] <- nrow(y)
+        }
+        
+        tibble(materi, barNeeded)
+    })
+    
+    output$output4 <- renderReactable({
+         reacOut4() %>% 
+            reactable(pagination = FALSE)
+    })
+    
+    output$download4 <- downloadHandler(
+        filename = function(){"ringkasan.csv"},
+        content = function(fname) {
+            write.csv(reacOut4(), fname)
+        }
+    )
     
 } # server
 

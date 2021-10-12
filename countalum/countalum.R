@@ -67,3 +67,5 @@ countalum <- function(x, barLength = 6000) {
   
 }
 
+
+
