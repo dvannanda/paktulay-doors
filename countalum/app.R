@@ -150,6 +150,11 @@ server <- function(input, output, session) {
         paste("No of bars needed for ", input$Id003, " = ", nrow(reacNeed()))
     })
     
+    output$output2 <- renderReactable({
+        reacDataModel() %>% 
+            reactable()
+    }) 
+    
 } # server
 
 
