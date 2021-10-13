@@ -12,7 +12,7 @@ onebar <- function(x, barLength = 6000) {
   needLeft = c()
   
   for (i in x) {
-    if (i < r) {
+    if (i <= r) {
       r = r - i
       index = length(barCut) + 1
       barCut[index] = i
