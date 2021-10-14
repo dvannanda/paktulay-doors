@@ -38,7 +38,7 @@ countalum <- function(x, barLength = 6000) {
   while (length(needLeft > 0)) {
     
     barNeeded = barNeeded + 1
-    x = onebar(needLeft)
+    x = onebar(needLeft, barLength = barLength)
     needLeft = x[[2]]
     
     index = length(barcuts) + 1
