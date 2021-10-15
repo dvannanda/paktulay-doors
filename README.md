@@ -8,6 +8,10 @@ Go to this [link](https://dvannanda.github.io/paktulay-doors/#Legend) for explan
 
 ![countalum default settings](shiny-screenshots/default.jpg)
 
+Filter for doors:
+
 ![countalum option: doors](shiny-screenshots/doors.jpg)
+
++ show the materials breakdown tab:
 
 ![countalum option: doors, tab: rincian materi](shiny-screenshots/doors2.jpg)
