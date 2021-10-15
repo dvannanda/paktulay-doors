@@ -135,7 +135,6 @@ server <- function(input, output, session) {
             
     })
 
-    # change model input acc to type
     observeEvent(input$Id001, {
         updatePickerInput(
             session = session,
@@ -144,7 +143,6 @@ server <- function(input, output, session) {
             selected = reacDataType()$model %>% unique())
     })
     
-    # change 
     observeEvent(input$Id002, {
         updatePickerInput(
             session = session,
