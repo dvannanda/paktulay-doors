@@ -25,7 +25,6 @@ onebar <- function(x, barLength = 6000) {
   output = list(barCut, needLeft)
   
   return(output)
-  
 }
 
 # function to calculate how many bars each material needs
